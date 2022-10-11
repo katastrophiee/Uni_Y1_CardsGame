@@ -53,11 +53,11 @@ namespace GUIImageArray
             Int_rows = cardArray.GetLength(0);
             Int_cols = cardArray.GetLength(0); 
             // Calculate the Height of each element related to the size of the Form and number required
-            int Available_Height = Display.ClientSize.Height - ((Top + Bottom) + (Border * Int_cols - 1));
+            int Available_Height = Display.ClientSize.Height - ((Top + Bottom) + (Border * Int_cols - 1) + 200); // added 200 to make squares smaller than screen
             // Calculate the Width of each element related to the size of the Form and number required
-            int Available_Width = Display.ClientSize.Width - ((Left + Right) + (Border * Int_rows - 1));
+            int Available_Width = Display.ClientSize.Width - ((Left + Right) + (Border * Int_rows - 1) + 200);
             Int_top = Top;
-            Int_left=Left;
+            Int_left=Left + 150; // added 150 to center the grid in the screen
             Int_Border = Border;
             Path_To_Picture = ImagePath;
 

@@ -17,7 +17,8 @@ namespace pain
         int[,] int_board = new int[8, 8];
         GImageArray gimagearray;
         string str_Image_path = Directory.GetCurrentDirectory() + "\\images\\";
-        
+        string str_player_1_name;
+        string str_player_2_name;
 
         public Form1()
         {
@@ -66,10 +67,12 @@ namespace pain
 
 
 
-        private void btn_show_image_Click(object sender, EventArgs e)
+        private void btn_start_Click(object sender, EventArgs e)
         {
             gimagearray = new GImageArray(this, int_board,10,10,10,100,0,str_Image_path);
             gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+            btn_start.Visible = false;
+            btn_stop.Visible = true;
         }
         
         private void Which_Element_Clicked(object sender, EventArgs e)
@@ -90,6 +93,11 @@ namespace pain
             }
             //int_board[Int_Row, Int_Col] = 0;
             gimagearray.UpDateImages(int_board);
+        }
+
+        private void btn_stop_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
     }
 }
