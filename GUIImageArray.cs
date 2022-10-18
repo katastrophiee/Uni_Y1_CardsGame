@@ -278,7 +278,7 @@ namespace GUIImageArray
         }
         private int ImageElement_Height(int Available_Size)
         {
-            int n = Available_Size/Int_cols;
+            int n = Available_Size/Int_cols + 20;
             return n;
         }
         private int ImageElement_Width(int Available_Size)

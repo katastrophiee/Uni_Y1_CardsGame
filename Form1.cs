@@ -24,8 +24,30 @@ namespace pain
         {
             InitializeComponent();
             create_player_1_panel();
+            create_player_2_panel();
+            create_start_button();
         }
 
+        private void create_start_button()
+        {
+            var btn_start = new Button();
+            btn_start.BackColor = Color.AliceBlue;
+            btn_start.FlatStyle = FlatStyle.Flat;
+            btn_start.Font = new Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btn_start.ForeColor = Color.DarkSlateGray;
+            int Height = this.ClientSize.Height;
+            btn_start.Name = "btn_start";
+            btn_start.Size = new Size(194, 44);
+            btn_start.TabIndex = 0;
+            btn_start.Text = "Start!";
+            btn_start.UseVisualStyleBackColor = false;
+            //btn_start.Height = Height + 50;
+            //btn_start.Anchor = AnchorStyles.Bottom; 
+            btn_start.Left = (this.ClientSize.Width - btn_start.Width) / 2;
+            btn_start.Top = (this.ClientSize.Height) - 50;
+            btn_start.Click += new EventHandler(this.btn_start_Click);
+            this.Controls.Add(btn_start);
+        }
         private void create_player_1_panel()
         {
             //Creates player 1 panel on the left
@@ -79,6 +101,59 @@ namespace pain
             this.Controls.Add(player_1_panel);
         }
 
+        private void create_player_2_panel()
+        {
+            //Creates player 1 panel on the left
+            var player_2_panel = new TableLayoutPanel();
+            player_2_panel.Dock = DockStyle.Right;
+            player_2_panel.BackColor = Color.SkyBlue;
+            player_2_panel.ColumnCount = 1;
+            player_2_panel.RowCount = 0;
+
+            player_2_panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
+            player_2_panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 75));
+            player_2_panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50)); //changes the size of each column to add correct spacing
+            player_2_panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
+            player_2_panel.AutoScroll = true;
+
+            // Creates player 1 label
+            var player_2_title_label = new Label();
+            player_2_title_label.AutoSize = true;
+            player_2_title_label.Font = new Font("Microsoft Sans Serif", 16); //changes font 
+            player_2_title_label.Text = "\nPlayer 2 Name:";
+            player_2_title_label.Dock = player_2_panel.Dock;
+            player_2_title_label.Dock = DockStyle.Top;
+
+            // Creates player 1 label
+            var player_2_pairs_label = new Label();
+            player_2_pairs_label.AutoSize = true;
+            player_2_pairs_label.Font = new Font("Microsoft Sans Serif", 16); //changes font 
+            player_2_pairs_label.Text = "\nPairs:";
+            player_2_pairs_label.Dock = player_2_panel.Dock;
+            player_2_pairs_label.Dock = DockStyle.Top;
+
+
+            //Creates text box for user to enter their name
+            var player_2_name_textbox = new TextBox();
+            player_2_name_textbox.BorderStyle = BorderStyle.Fixed3D;
+            player_2_name_textbox.Dock = player_2_panel.Dock;
+            player_2_name_textbox.Dock = DockStyle.Top;
+
+            //Creates read only text box to show pairs this player has made
+            var player_2_pairs_textbox = new TextBox();
+            player_2_pairs_textbox.BorderStyle = BorderStyle.Fixed3D;
+            player_2_pairs_textbox.Dock = player_2_panel.Dock;
+            player_2_pairs_textbox.Dock = DockStyle.Top;
+            player_2_pairs_textbox.ReadOnly = true;
+
+            // Add controls
+            player_2_panel.Controls.Add(player_2_title_label, 0, 0);
+            player_2_panel.Controls.Add(player_2_name_textbox, 1, 0); //increments which column they are on
+            player_2_panel.Controls.Add(player_2_pairs_label, 2, 0);
+            player_2_panel.Controls.Add(player_2_pairs_textbox, 3, 0);
+            this.Controls.Add(player_2_panel);
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             for (int Row = 0; Row <= 5; Row++)
@@ -121,7 +196,7 @@ namespace pain
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            gimagearray = new GImageArray(this, int_board,10,10,10,100,10,str_Image_path);
+            gimagearray = new GImageArray(this, int_board,10,10,10,300,20,str_Image_path);
             gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
             //btn_start.Visible = false;
         }
