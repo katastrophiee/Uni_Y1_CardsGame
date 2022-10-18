@@ -57,7 +57,7 @@ namespace GUIImageArray
             // Calculate the Width of each element related to the size of the Form and number required
             int Available_Width = Display.ClientSize.Width - ((Left + Right) + (Border * Int_rows - 1) + 200);
             Int_top = Top;
-            Int_left=Left + 150; // added 150 to center the grid in the screen
+            Int_left=Left + 250; // added 150 to center the grid in the screen
             Int_Border = Border;
             Path_To_Picture = ImagePath;
 
