@@ -255,7 +255,7 @@ namespace pain
         {
             for (int i = 0; i < 36; i++)
             {
-                
+                Properties.Settings.Default.
                 array1D[i] = i / 2;
             }
 
