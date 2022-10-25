@@ -162,19 +162,26 @@ namespace pain
         private int get_card()
         {
             Random rnd = new Random();
-            int card = rnd.Next(1, 19); ; //random number between 1 and 18
+            int card = rnd.Next(1, 36); //random number between 1 and 18
 
-            if (check_card(card, 2))
-            {
-                //true
-                instances[card]++;
-                return card;
+            do {
+                card = rnd.Next(1, 36);
+                if (check_card(card, 2))
+                {
+                    card = rnd.Next(1, 36);
+                    //true
+                    instances[card]++;
+                    return card;
+
+                }
+                //else
+                //{
+                //    //get new card
+                //    card = rnd.Next(1, 19);
+                //    instances[card]++;//random number between 1 and 18
+                //}
             }
-            else
-            {
-                //get new card
-                //get_card();
-            }
+            while (check_card(card, 36));
             return 0;
         }
 
@@ -182,6 +189,7 @@ namespace pain
         {
             if (instances[card]<max_cards)
             {
+                instances[card]++;
                 return true;
             }
             else
@@ -255,7 +263,6 @@ namespace pain
         {
             for (int i = 0; i < 36; i++)
             {
-                Properties.Settings.Default.
                 array1D[i] = i / 2;
             }
 
@@ -284,14 +291,14 @@ namespace pain
         
         private void btn_start_Click(object sender, EventArgs e)
         {
-            //for (int row = 0; row < 6; row++)
-            //{
-            //    for (int col = 0; col < 6; col++)
-            //    {
-            //        int_board[row, col] = get_card();
-            //    }
-            //}
-            set_cards();
+            for (int row = 0; row < 6; row++)
+            {
+                for (int col = 0; col < 6; col++)
+                {
+                    int_board[row, col] = get_card();
+                }
+            }
+            //set_cards();
             gimagearray = new GImageArray(this, int_board,10,10,10,300,20,str_Image_path);
             gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
             gimagearray.UpDateImages(int_board);
