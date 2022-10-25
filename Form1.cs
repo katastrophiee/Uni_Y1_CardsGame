@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using GUIImageArray;
+using DynamicUI;
 
 namespace pain
 {
@@ -26,6 +27,7 @@ namespace pain
             create_player_1_panel();
             create_player_2_panel();
             create_start_button();
+            //MessageBox.Show(str_Image_path);
         }
 
         private void create_start_button()
@@ -33,7 +35,7 @@ namespace pain
             var btn_start = new Button();
             btn_start.BackColor = Color.AliceBlue;
             btn_start.FlatStyle = FlatStyle.Flat;
-            btn_start.Font = new Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btn_start.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             btn_start.ForeColor = Color.DarkSlateGray;
             int Height = this.ClientSize.Height;
             btn_start.Name = "btn_start";
@@ -48,6 +50,7 @@ namespace pain
             btn_start.Click += new EventHandler(this.btn_start_Click);
             this.Controls.Add(btn_start);
         }
+
         private void create_player_1_panel()
         {
             //Creates player 1 panel on the left
@@ -154,6 +157,40 @@ namespace pain
             this.Controls.Add(player_2_panel);
         }
 
+        int[] instances = new int[53];
+
+        private int get_card()
+        {
+            Random rnd = new Random();
+            int card = rnd.Next(1, 19); ; //random number between 1 and 18
+
+            if (check_card(card, 2))
+            {
+                //true
+                instances[card]++;
+                return card;
+            }
+            else
+            {
+                //get new card
+                //get_card();
+            }
+            return 0;
+        }
+
+        private bool check_card(int card, int max_cards)
+        {
+            if (instances[card]<max_cards)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             for (int Row = 0; Row <= 5; Row++)
@@ -192,12 +229,72 @@ namespace pain
             }
         }
 
+        int[] array1D = new int[36];
 
+        private void uh()
+        {
+            for (int i=0; i<=5; i++)
+            {
+                for (int j=0; j<=5; j++)
+                {
+                    Random rnd = new Random();
+                    int card = rnd.Next(36);
+                    int_board[i, j] = array1D[card];
+                }
+            }
 
+            for (int i = 0; i < 36; i++)
+            {
+                array1D[i] = i/2;
+            }
+
+            MessageBox.Show(int_board[0,0].ToString());
+        }
+
+        private void set_cards()
+        {
+            for (int i = 0; i < 36; i++)
+            {
+                
+                array1D[i] = i / 2;
+            }
+
+            List<int> picked = new List<int>();
+            Random rnd = new Random();
+
+            for (int Row = 0; Row <= 5; Row++)
+            {
+                for (int Column = 0; Column <= 5; Column++)
+                {
+                    bool CardAssigned = false;
+                    while (!CardAssigned)
+                    {
+                        int card = rnd.Next(36);
+                        bool alreadyexists = picked.Contains(card);
+                        if (!alreadyexists)
+                        {
+                            picked.Add(card);
+                            int_board[Row, Column] = array1D[card];
+                            CardAssigned = true;
+                        }
+                    }
+                }
+            }
+        }
+        
         private void btn_start_Click(object sender, EventArgs e)
         {
+            //for (int row = 0; row < 6; row++)
+            //{
+            //    for (int col = 0; col < 6; col++)
+            //    {
+            //        int_board[row, col] = get_card();
+            //    }
+            //}
+            set_cards();
             gimagearray = new GImageArray(this, int_board,10,10,10,300,20,str_Image_path);
             gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+            gimagearray.UpDateImages(int_board);
             //btn_start.Visible = false;
         }
         
@@ -220,5 +317,6 @@ namespace pain
             //int_board[Int_Row, Int_Col] = 0;
             gimagearray.UpDateImages(int_board);
         }
+
     }
 }
