@@ -27,7 +27,7 @@ namespace pain
             create_player_1_panel();
             create_player_2_panel();
             create_start_button();
-            //MessageBox.Show(str_Image_path);
+            MessageBox.Show(str_Image_path);
         }
 
         private void create_start_button()
@@ -199,6 +199,42 @@ namespace pain
 
         }
 
+        private void assign_card(int amount_of_cards)
+        {
+            int[] cards = new int[amount_of_cards/2]; //makes array containing half the amount of total cards
+            Random rnd = new Random(); //makes random
+
+            for (int count = 0; count != (amount_of_cards/2); count++) //does a count up to half the amount of total cards
+            {
+                int card = rnd.Next(53); //generates random number between 1 and 53 
+
+                if (!cards.Contains(card)) //checks that this card has not already been added to the array
+                {
+                    cards[count] = card; //adds it if not
+                }
+                else
+                {
+                    count -= 1; //minuses count by 1 as no card has been added
+                }
+            }
+
+            cards = cards.Concat(cards).ToArray(); //duplicates all of the items in the list to get 2 of each card
+            cards = cards.OrderBy(x => rnd.Next()).ToArray(); //randomises the order of the numbers within the list
+
+            int item = 0; //
+            for (int Row = 0; Row <= 5; Row++)
+            {
+                for (int Column = 0; Column <= 5; Column++)
+                {
+                    int_board[Row, Column] = cards[item];
+                    if (item != amount_of_cards)
+                    {
+                        item += 1;
+                    }
+                }
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             for (int Row = 0; Row <= 5; Row++)
@@ -291,13 +327,14 @@ namespace pain
         
         private void btn_start_Click(object sender, EventArgs e)
         {
-            for (int row = 0; row < 6; row++)
-            {
-                for (int col = 0; col < 6; col++)
-                {
-                    int_board[row, col] = get_card();
-                }
-            }
+            assign_card(36);
+            //for (int row = 0; row < 6; row++)
+            //{
+            //    for (int col = 0; col < 6; col++)
+            //    {
+            //        int_board[row, col] = get_card();
+            //    }
+            //}
             //set_cards();
             gimagearray = new GImageArray(this, int_board,10,10,10,300,20,str_Image_path);
             gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
