@@ -16,6 +16,11 @@ namespace pain
     public partial class Form1 : Form
     {
         int[,] int_board = new int[6, 6];
+        int[,] card_placement = new int[6, 6];
+        int first_card_selected_row = -1;
+        int second_card_selected_row = -1;
+        int first_card_selected_column = -1;
+        int second_card_selected_column = -1;
         GImageArray gimagearray;
         string str_Image_path = Directory.GetCurrentDirectory() + "\\Cards\\";
         string str_player_1_name;
@@ -26,29 +31,7 @@ namespace pain
             InitializeComponent();
             create_player_1_panel();
             create_player_2_panel();
-            create_start_button();
-            MessageBox.Show(str_Image_path);
-        }
-
-        private void create_start_button()
-        {
-            var btn_start = new Button();
-            btn_start.BackColor = Color.AliceBlue;
-            btn_start.FlatStyle = FlatStyle.Flat;
-            btn_start.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-            btn_start.ForeColor = Color.DarkSlateGray;
-            int Height = this.ClientSize.Height;
-            btn_start.Name = "btn_start";
-            btn_start.Size = new Size(194, 44);
-            btn_start.TabIndex = 0;
-            btn_start.Text = "Start!";
-            btn_start.UseVisualStyleBackColor = false;
-            //btn_start.Height = Height + 50;
-            //btn_start.Anchor = AnchorStyles.Bottom; 
-            btn_start.Left = (this.ClientSize.Width - btn_start.Width) / 2;
-            btn_start.Top = (this.ClientSize.Height) - 50;
-            btn_start.Click += new EventHandler(this.btn_start_Click);
-            this.Controls.Add(btn_start);
+            //MessageBox.Show(str_Image_path);
         }
 
         private void create_player_1_panel()
@@ -73,7 +56,7 @@ namespace pain
             player_1_title_label.Text = "\nPlayer 1 Name:";
             player_1_title_label.Dock = player_1_panel.Dock;
             player_1_title_label.Dock = DockStyle.Top;
-            
+
             // Creates player 1 label
             var player_1_pairs_label = new Label();
             player_1_pairs_label.AutoSize = true;
@@ -88,7 +71,7 @@ namespace pain
             player_1_name_textbox.BorderStyle = BorderStyle.Fixed3D;
             player_1_name_textbox.Dock = player_1_panel.Dock;
             player_1_name_textbox.Dock = DockStyle.Top;
-            
+
             //Creates read only text box to show pairs this player has made
             var player_1_pairs_textbox = new TextBox();
             player_1_pairs_textbox.BorderStyle = BorderStyle.Fixed3D;
@@ -157,54 +140,67 @@ namespace pain
             this.Controls.Add(player_2_panel);
         }
 
-        int[] instances = new int[53];
+        //int[] instances = new int[53];
 
-        private int get_card()
+        //private int get_card()
+        //{
+        //    Random rnd = new Random();
+        //    int card = rnd.Next(1, 36); //random number between 1 and 18
+
+        //    do {
+        //        card = rnd.Next(1, 36);
+        //        if (check_card(card, 2))
+        //        {
+        //            card = rnd.Next(1, 36);
+        //            //true
+        //            instances[card]++;
+        //            return card;
+
+        //        }
+        //        //else
+        //        //{
+        //        //    //get new card
+        //        //    card = rnd.Next(1, 19);
+        //        //    instances[card]++;//random number between 1 and 18
+        //        //}
+        //    }
+        //    while (check_card(card, 36));
+        //    return 0;
+        //}
+
+        //private bool check_card(int card, int max_cards)
+        //{
+        //    if (instances[card]<max_cards)
+        //    {
+        //        instances[card]++;
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+
+        //}
+
+        private bool check_box_empty(TextBox name)
         {
-            Random rnd = new Random();
-            int card = rnd.Next(1, 36); //random number between 1 and 18
-
-            do {
-                card = rnd.Next(1, 36);
-                if (check_card(card, 2))
-                {
-                    card = rnd.Next(1, 36);
-                    //true
-                    instances[card]++;
-                    return card;
-
-                }
-                //else
-                //{
-                //    //get new card
-                //    card = rnd.Next(1, 19);
-                //    instances[card]++;//random number between 1 and 18
-                //}
-            }
-            while (check_card(card, 36));
-            return 0;
-        }
-
-        private bool check_card(int card, int max_cards)
-        {
-            if (instances[card]<max_cards)
+            if (name.Text == "")
             {
-                instances[card]++;
-                return true;
+                MessageBox.Show("Please populate both names before starting.");
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
-
         }
 
-        private void assign_card(int amount_of_cards)
+        private int[] assign_card(int amount_of_cards)
         {
-            int[] cards = new int[amount_of_cards/2]; //makes array containing half the amount of total cards
+            int[] cards = new int[amount_of_cards / 2]; //makes array containing half the amount of total cards
             Random rnd = new Random(); //makes random
 
-            for (int count = 0; count != (amount_of_cards/2); count++) //does a count up to half the amount of total cards
+            for (int count = 0; count != (amount_of_cards / 2); count++) //does a count up to half the amount of total cards
             {
                 int card = rnd.Next(53); //generates random number between 1 and 53 
 
@@ -221,15 +217,23 @@ namespace pain
             cards = cards.Concat(cards).ToArray(); //duplicates all of the items in the list to get 2 of each card
             cards = cards.OrderBy(x => rnd.Next()).ToArray(); //randomises the order of the numbers within the list
 
-            int item = 0; //
-            for (int Row = 0; Row <= 5; Row++)
+
+
+
+            return cards; //returns the card placement
+        }
+
+        private void set_board_to_cards(int amount_of_cards, int[] cards)
+        {
+            int item = 0; //starts item to know which card we're on
+            for (int Row = 0; Row <= 5; Row++) //iterates through each row
             {
-                for (int Column = 0; Column <= 5; Column++)
+                for (int Column = 0; Column <= 5; Column++) //iterates through each column
                 {
-                    int_board[Row, Column] = cards[item];
-                    if (item != amount_of_cards)
+                    int_board[Row, Column] = cards[item]; //assigns this picture with the correct card
+                    if (item != amount_of_cards) //checks we've not run out of cards to set the picture for
                     {
-                        item += 1;
+                        item += 1; //moves on to the next item
                     }
                 }
             }
@@ -239,109 +243,106 @@ namespace pain
         {
             for (int Row = 0; Row <= 5; Row++)
             {
-                for(int Column = 0; Column <= 5; Column++)
-                {
-                    if ((Column == 0) && (Row == 0))
-                    {
-                        int_board[Row, Column] = 55;
-                    }
-                    else
-                    if (Column > 0)
-                    {
-                        if (int_board[Row, Column - 1] == 55) //55 is blue back of card
-                        {
-                            int_board[Row, Column] = 56; //56 is red back of card
-                        }
-                        else
-                        {
-                            int_board[Row, Column] = 55;
-                        }
-                    }
-                    if (Row > 0)
-                    {
-                        if (int_board[Row - 1, Column] == 55)
-                        {
-                            int_board[Row, Column] = 56;
-                        }
-                        else
-                        {
-                            int_board[Row, Column] = 55;
-                        }
-                    }     
-                    
-                }
-            }
-        }
-
-        int[] array1D = new int[36];
-
-        private void uh()
-        {
-            for (int i=0; i<=5; i++)
-            {
-                for (int j=0; j<=5; j++)
-                {
-                    Random rnd = new Random();
-                    int card = rnd.Next(36);
-                    int_board[i, j] = array1D[card];
-                }
-            }
-
-            for (int i = 0; i < 36; i++)
-            {
-                array1D[i] = i/2;
-            }
-
-            MessageBox.Show(int_board[0,0].ToString());
-        }
-
-        private void set_cards()
-        {
-            for (int i = 0; i < 36; i++)
-            {
-                array1D[i] = i / 2;
-            }
-
-            List<int> picked = new List<int>();
-            Random rnd = new Random();
-
-            for (int Row = 0; Row <= 5; Row++)
-            {
                 for (int Column = 0; Column <= 5; Column++)
                 {
-                    bool CardAssigned = false;
-                    while (!CardAssigned)
-                    {
-                        int card = rnd.Next(36);
-                        bool alreadyexists = picked.Contains(card);
-                        if (!alreadyexists)
-                        {
-                            picked.Add(card);
-                            int_board[Row, Column] = array1D[card];
-                            CardAssigned = true;
-                        }
-                    }
+                    //if ((Column == 0) && (Row == 0))
+                    //{
+                    //    int_board[Row, Column] = 55;
+                    //}
+                    //else
+                    //if (Column > 0)
+                    //{
+                    //    if (int_board[Row, Column - 1] == 55) //55 is blue back of card
+                    //    {
+                    //        int_board[Row, Column] = 56; //56 is red back of card
+                    //    }
+                    //    else
+                    //    {
+                    //        int_board[Row, Column] = 55;
+                    //    }
+                    //}
+                    //if (Row > 0)
+                    //{
+                    //    if (int_board[Row - 1, Column] == 55)
+                    //    {
+                    //        int_board[Row, Column] = 56;
+                    //    }
+                    //    else
+                    //    {
+                    //        int_board[Row, Column] = 55;
+                    //    }
+                    //}     
+
+                    int_board[Row, Column] = 56;
                 }
             }
         }
-        
-        private void btn_start_Click(object sender, EventArgs e)
+
+        //int[] array1D = new int[36];
+
+        //private void uh()
+        //{
+        //    for (int i=0; i<=5; i++)
+        //    {
+        //        for (int j=0; j<=5; j++)
+        //        {
+        //            Random rnd = new Random();
+        //            int card = rnd.Next(36);
+        //            int_board[i, j] = array1D[card];
+        //        }
+        //    }
+
+        //    for (int i = 0; i < 36; i++)
+        //    {
+        //        array1D[i] = i/2;
+        //    }
+
+        //    MessageBox.Show(int_board[0,0].ToString());
+        //}
+
+        //private void set_cards()
+        //{
+        //    for (int i = 0; i < 36; i++)
+        //    {
+        //        array1D[i] = i / 2;
+        //    }
+
+        //    List<int> picked = new List<int>();
+        //    Random rnd = new Random();
+
+        //    for (int Row = 0; Row <= 5; Row++)
+        //    {
+        //        for (int Column = 0; Column <= 5; Column++)
+        //        {
+        //            bool CardAssigned = false;
+        //            while (!CardAssigned)
+        //            {
+        //                int card = rnd.Next(36);
+        //                bool alreadyexists = picked.Contains(card);
+        //                if (!alreadyexists)
+        //                {
+        //                    picked.Add(card);
+        //                    int_board[Row, Column] = array1D[card];
+        //                    CardAssigned = true;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        private static T[,] Make2DArray<T>(T[] input, int height, int width)
         {
-            assign_card(36);
-            //for (int row = 0; row < 6; row++)
-            //{
-            //    for (int col = 0; col < 6; col++)
-            //    {
-            //        int_board[row, col] = get_card();
-            //    }
-            //}
-            //set_cards();
-            gimagearray = new GImageArray(this, int_board,10,10,10,300,20,str_Image_path);
-            gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
-            gimagearray.UpDateImages(int_board);
-            //btn_start.Visible = false;
+            T[,] output = new T[height, width];
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    output[i, j] = input[i * width + j];
+                }
+            }
+            return output;
         }
-        
+
         private void Which_Element_Clicked(object sender, EventArgs e)
         {
             int Int_Row = gimagearray.Get_Row(sender);
@@ -350,17 +351,149 @@ namespace pain
             txtB_Row.Text = Convert.ToString(Int_Row);
             txtB_Col.Text = Convert.ToString(Int_Col);
 
-            if (int_board[Int_Row,Int_Col] == 56)
+            if (int_board[Int_Row, Int_Col] != 55)
             {
-                int_board[Int_Row, Int_Col] = 55;
+                int_board[Int_Row, Int_Col] = card_placement[Int_Row, Int_Col];
+                gimagearray.UpDateImages(int_board);
+
+                if (first_card_selected_row == -1 && first_card_selected_column == -1)
+                {
+                    first_card_selected_row = Int_Row;
+                    first_card_selected_column = Int_Col;
+                }
+                else
+                {
+                    if (first_card_selected_row == Int_Row && first_card_selected_column == Int_Col)
+                    {
+                        MessageBox.Show("Please select a different card!");
+                    }
+                    else
+                    {
+                        second_card_selected_row = Int_Row;
+                        second_card_selected_column = Int_Col;
+
+                        bool cards_match = check_for_match();
+
+                        if (!cards_match)
+                        {
+                            MessageBox.Show("Not a match");
+                            int_board[first_card_selected_row, first_card_selected_column] = 56;
+                            int_board[second_card_selected_row, second_card_selected_column] = 56;
+
+                            first_card_selected_row = -1;
+                            second_card_selected_row = -1;
+                            first_card_selected_column = -1;
+                            second_card_selected_column = -1;
+                            gimagearray.UpDateImages(int_board);
+                        }
+                        else
+                        {
+                            MessageBox.Show("It's a match! 1 point to name!");
+
+                            int_board[first_card_selected_row, first_card_selected_column] = 55;
+                            int_board[second_card_selected_row, second_card_selected_column] = 55;
+
+                            first_card_selected_row = -1;
+                            second_card_selected_row = -1;
+                            first_card_selected_column = -1;
+                            second_card_selected_column = -1;
+                            gimagearray.UpDateImages(int_board);
+                            //cards = cards.Concat(cards).ToArray();
+
+                        }
+                    }
+                }
             }
             else
             {
-                int_board[Int_Row, Int_Col] = 56;
+                MessageBox.Show("This card has already been matched, use a different one.");
             }
+
+
+            //if (int_board[Int_Row,Int_Col] != 56 && int_board[Int_Row, Int_Col] != 55)
+            //{
+            //    int_board[Int_Row, Int_Col] = 55;
+            //}
+            //{
+            //    int_board[Int_Row, Int_Col] = 55;
+            //}
+            //else
+            //{
+            //    int_board[Int_Row, Int_Col] = 56;
+            //}
             //int_board[Int_Row, Int_Col] = 0;
+
+
+        }
+
+
+        private bool check_for_match()
+        {
+            if (card_placement[first_card_selected_row, first_card_selected_column] == card_placement[second_card_selected_row, second_card_selected_column])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void turn_card_back(object sender, EventArgs e)
+        {
+            int Int_Row = gimagearray.Get_Row(sender);
+            int Int_Col = gimagearray.Get_Col(sender);
+
+            txtB_Row.Text = Convert.ToString(Int_Row);
+            txtB_Col.Text = Convert.ToString(Int_Col);
+
+            int_board[Int_Row, Int_Col] = 55;
+            //if (int_board[Int_Row,Int_Col] != 56 && int_board[Int_Row, Int_Col] != 55)
+            //{
+            //    int_board[Int_Row, Int_Col] = 55;
+            //}
+            //{
+            //    int_board[Int_Row, Int_Col] = 55;
+            //}
+            //else
+            //{
+            //    int_board[Int_Row, Int_Col] = 56;
+            //}
+            //int_board[Int_Row, Int_Col] = 0;
+
+            //gimagearray.Which_Element_Clicked -= new GImageArray.ImageClickedEventHandler(turn_card_back);
+            //gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+            MessageBox.Show("i am shocked this ran :)");
             gimagearray.UpDateImages(int_board);
         }
 
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int[] card_arrangement = assign_card(36); // gets the placement for the cards on the board
+            //set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
+
+            //if (check_box_empty(player_1_name_textbox))
+            //{
+
+            //}
+
+            gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 20, str_Image_path);
+            gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+            gimagearray.UpDateImages(int_board);
+
+            card_placement = Make2DArray(card_arrangement, 6, 6);
+
+            //btn_start.Visible = false;
+        }
+
+        private void loadGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void abouToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
