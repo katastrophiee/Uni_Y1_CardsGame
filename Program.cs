@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 
 
-namespace pain
+namespace pairs
 {
     internal static class Program
     {

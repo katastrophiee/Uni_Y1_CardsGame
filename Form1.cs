@@ -11,7 +11,7 @@ using System.IO;
 using GUIImageArray;
 using DynamicUI;
 
-namespace pain
+namespace pairs
 {
     public partial class Form1 : Form
     {
@@ -427,9 +427,14 @@ namespace pain
         }
 
 
+        private void jiuasdfejknf(object sender, EventArgs e)
+        {
+
+        }
         private bool check_for_match()
         {
-            if (card_placement[first_card_selected_row, first_card_selected_column] == card_placement[second_card_selected_row, second_card_selected_column])
+            if (card_placement[first_card_selected_row, first_card_selected_column]
+                == card_placement[second_card_selected_row, second_card_selected_column])
             {
                 return true;
             }
@@ -438,6 +443,7 @@ namespace pain
                 return false;
             }
         }
+        
 
         private void turn_card_back(object sender, EventArgs e)
         {
@@ -472,10 +478,14 @@ namespace pain
             int[] card_arrangement = assign_card(36); // gets the placement for the cards on the board
             //set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
 
-            //if (check_box_empty(player_1_name_textbox))
+            //Control[] matched = Controls.Find(f.Symbol + "AtBox", true);
+            //if (matched.Length > 0 && matched[0] is TextBox tb)
             //{
-
+            //    tb.Text = "";
             //}
+            //https://www.codeproject.com/Questions/5164408/How-to-modify-the-content-of-a-dynamically-created
+
+            //assign the variables for the names to the public ones in the form then check those values
 
             gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 20, str_Image_path);
             gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
@@ -484,16 +494,6 @@ namespace pain
             card_placement = Make2DArray(card_arrangement, 6, 6);
 
             //btn_start.Visible = false;
-        }
-
-        private void loadGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void abouToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
