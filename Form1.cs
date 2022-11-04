@@ -71,6 +71,7 @@ namespace pairs
             player_1_name_textbox.BorderStyle = BorderStyle.Fixed3D;
             player_1_name_textbox.Dock = player_1_panel.Dock;
             player_1_name_textbox.Dock = DockStyle.Top;
+            player_1_name_textbox.Name = "player_1_name_txt"; //names it so i can reference it later
 
             //Creates read only text box to show pairs this player has made
             var player_1_pairs_textbox = new TextBox();
@@ -124,6 +125,7 @@ namespace pairs
             player_2_name_textbox.BorderStyle = BorderStyle.Fixed3D;
             player_2_name_textbox.Dock = player_2_panel.Dock;
             player_2_name_textbox.Dock = DockStyle.Top;
+            player_2_name_textbox.Name = "player_2_name_txt"; //names it so i can reference it later
 
             //Creates read only text box to show pairs this player has made
             var player_2_pairs_textbox = new TextBox();
@@ -426,11 +428,6 @@ namespace pairs
 
         }
 
-
-        private void jiuasdfejknf(object sender, EventArgs e)
-        {
-
-        }
         private bool check_for_match()
         {
             if (card_placement[first_card_selected_row, first_card_selected_column]
@@ -475,25 +472,38 @@ namespace pairs
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int[] card_arrangement = assign_card(36); // gets the placement for the cards on the board
-            //set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
+            TextBox player_1_name = (TextBox)Controls.Find("player_1_name_txt", true)[0]; //gets the value for player 1's name
+            TextBox player_2_name = (TextBox)Controls.Find("player_2_name_txt", true)[0]; //does same for player 2
 
-            //Control[] matched = Controls.Find(f.Symbol + "AtBox", true);
-            //if (matched.Length > 0 && matched[0] is TextBox tb)
-            //{
-            //    tb.Text = "";
-            //}
-            //https://www.codeproject.com/Questions/5164408/How-to-modify-the-content-of-a-dynamically-created
+            if (player_1_name.Text == "")
+            {
+                MessageBox.Show("Player 1 must have a name before the game starts");
+            }
+            else if (player_2_name.Text == "")
+            {
+                MessageBox.Show("Player 2 must have a name before the game starts");
+            }
+            else
+            {
+                int[] card_arrangement = assign_card(36); // gets the placement for the cards on the board
+                //set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
 
-            //assign the variables for the names to the public ones in the form then check those values
+                //Control[] matched = Controls.Find(f.Symbol + "AtBox", true);
+                //if (matched.Length > 0 && matched[0] is TextBox tb)
+                //{
+                //    tb.Text = "";
+                //}
+                //https://www.codeproject.com/Questions/5164408/How-to-modify-the-content-of-a-dynamically-created
 
-            gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 20, str_Image_path);
-            gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
-            gimagearray.UpDateImages(int_board);
+                //assign the variables for the names to the public ones in the form then check those values
 
-            card_placement = Make2DArray(card_arrangement, 6, 6);
+                gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 20, str_Image_path);
+                gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+                gimagearray.UpDateImages(int_board);
 
-            //btn_start.Visible = false;
+                card_placement = Make2DArray(card_arrangement, 6, 6);
+            }
+            
         }
     }
 }

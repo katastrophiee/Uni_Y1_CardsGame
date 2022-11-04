@@ -46,7 +46,6 @@
             this.x16ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menu_bar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,36 +101,36 @@
             // newGameToolStripMenuItem
             // 
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.newGameToolStripMenuItem.Text = "New Game";
             this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
             // 
             // sepToolStripMenuItem
             // 
             this.sepToolStripMenuItem.Name = "sepToolStripMenuItem";
-            this.sepToolStripMenuItem.Size = new System.Drawing.Size(177, 6);
+            this.sepToolStripMenuItem.Size = new System.Drawing.Size(147, 6);
             // 
             // saveGameToolStripMenuItem
             // 
             this.saveGameToolStripMenuItem.Name = "saveGameToolStripMenuItem";
-            this.saveGameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveGameToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.saveGameToolStripMenuItem.Text = "Save Game";
             // 
             // loadGameToolStripMenuItem
             // 
             this.loadGameToolStripMenuItem.Name = "loadGameToolStripMenuItem";
-            this.loadGameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadGameToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.loadGameToolStripMenuItem.Text = "Retrieve Game";
             // 
             // serpToolStripMenuItem
             // 
             this.serpToolStripMenuItem.Name = "serpToolStripMenuItem";
-            this.serpToolStripMenuItem.Size = new System.Drawing.Size(177, 6);
+            this.serpToolStripMenuItem.Size = new System.Drawing.Size(147, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // settingsToolStripMenuItem
@@ -184,20 +183,12 @@
             this.abouToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.abouToolStripMenuItem.Text = "About";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(438, 239);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 20);
-            this.textBox1.TabIndex = 6;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(1078, 738);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtB_Col);
             this.Controls.Add(this.txtB_Row);
