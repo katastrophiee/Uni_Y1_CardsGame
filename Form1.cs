@@ -46,12 +46,14 @@ namespace pairs
         private void create_image()
         {
             var center_image = new PictureBox();
-            center_image.Name = "center_image_png";
-            center_image.Location = new Point(0, 0);
-            center_image.Size = new Size(100, 100);
-            center_image.SizeMode = PictureBoxSizeMode.CenterImage;
+            center_image.Name = "center_image_png";  
+            center_image.Size = new Size(500, 500);
+            center_image.SizeMode = PictureBoxSizeMode.AutoSize;
             center_image.BackColor = Color.Transparent;
-            //center_image.Image = Properties.S
+            center_image.BackgroundImage = Image.FromFile("C:\\Users\\kaytl\\source\\repos\\picture-thing\\Resources\\pear.png"); //change to str_image_path
+            //center_image.
+            center_image.Location = new Point((this.Width / 2) - (center_image.Width / 2), (this.Height / 2) - (center_image.Height / 2));
+            this.Controls.Add(center_image);
         }
 
         private void create_player_1_panel()
