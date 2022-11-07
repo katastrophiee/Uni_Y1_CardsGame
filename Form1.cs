@@ -10,9 +10,13 @@ using System.Windows.Forms;
 using System.IO;
 using GUIImageArray;
 using DynamicUI;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+
 
 namespace pairs
 {
+
     public partial class Form1 : Form
     {
         int[,] int_board = new int[6, 6];
@@ -21,13 +25,17 @@ namespace pairs
         int second_card_selected_row = -1;
         int first_card_selected_column = -1;
         int second_card_selected_column = -1;
+        int player_1_score = 0;
+        int player_2_score = 0;
         GImageArray gimagearray;
         string str_Image_path = Directory.GetCurrentDirectory() + "\\Cards\\";
         string str_player_1_name;
         string str_player_2_name;
+        bool player_1_turn = false;
 
         public Form1()
         {
+
             InitializeComponent();
             create_player_1_panel();
             create_player_2_panel();
@@ -195,6 +203,7 @@ namespace pairs
             {
                 return true;
             }
+
         }
 
         private int[] assign_card(int amount_of_cards)
@@ -356,6 +365,9 @@ namespace pairs
             if (int_board[Int_Row, Int_Col] != 55)
             {
                 int_board[Int_Row, Int_Col] = card_placement[Int_Row, Int_Col];
+
+                MessageBox.Show(Convert.ToString(gimagearray));
+
                 gimagearray.UpDateImages(int_board);
 
                 if (first_card_selected_row == -1 && first_card_selected_column == -1)
@@ -387,10 +399,22 @@ namespace pairs
                             first_card_selected_column = -1;
                             second_card_selected_column = -1;
                             gimagearray.UpDateImages(int_board);
+                            change_turn();
+
                         }
                         else
                         {
-                            MessageBox.Show("It's a match! 1 point to name!");
+                            if (player_1_turn == true)
+                            {
+                                player_1_score += 1;
+                                MessageBox.Show($"It's a match! 1 point to {str_player_1_name}!");
+                            }
+                            else
+                            {
+                                player_2_score += 1;
+                                MessageBox.Show($"It's a match! 1 point to {str_player_2_name}!");
+                            }
+
 
                             int_board[first_card_selected_row, first_card_selected_column] = 55;
                             int_board[second_card_selected_row, second_card_selected_column] = 55;
@@ -402,7 +426,7 @@ namespace pairs
                             gimagearray.UpDateImages(int_board);
                             //cards = cards.Concat(cards).ToArray();
 
-                        }
+                        } 
                     }
                 }
             }
@@ -470,10 +494,26 @@ namespace pairs
             gimagearray.UpDateImages(int_board);
         }
 
+        private void change_turn()
+        {
+            if (player_1_turn == true)
+            {
+                player_1_turn = false;
+                MessageBox.Show("Player 2's turn.");
+            }
+            else
+            {
+                player_1_turn = true;
+                MessageBox.Show("Player 1's turn.");
+            }
+        }
+
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TextBox player_1_name = (TextBox)Controls.Find("player_1_name_txt", true)[0]; //gets the value for player 1's name
             TextBox player_2_name = (TextBox)Controls.Find("player_2_name_txt", true)[0]; //does same for player 2
+            Random rnd = new Random();
+            player_1_turn = rnd.NextDouble() >= 0.5;
 
             if (player_1_name.Text == "")
             {
@@ -485,17 +525,22 @@ namespace pairs
             }
             else
             {
+                player_2_name.ReadOnly = true;
+                player_1_name.ReadOnly = true;
+
+                str_player_1_name = player_1_name.Text;
+                str_player_2_name = player_2_name.Text;
+                if (player_1_turn == true)
+                {
+                    MessageBox.Show("Player 1 starts!");
+                }
+                else
+                {
+                    MessageBox.Show("Player 2 starts!");
+                }
+
                 int[] card_arrangement = assign_card(36); // gets the placement for the cards on the board
                 //set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
-
-                //Control[] matched = Controls.Find(f.Symbol + "AtBox", true);
-                //if (matched.Length > 0 && matched[0] is TextBox tb)
-                //{
-                //    tb.Text = "";
-                //}
-                //https://www.codeproject.com/Questions/5164408/How-to-modify-the-content-of-a-dynamically-created
-
-                //assign the variables for the names to the public ones in the form then check those values
 
                 gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 20, str_Image_path);
                 gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);

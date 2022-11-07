@@ -52,16 +52,16 @@ namespace GUIImageArray
             Int_rows = cardArray.GetLength(0);
             Int_cols = cardArray.GetLength(0); 
             // Calculate the Height of each element related to the size of the Form and number required
-            int Available_Height = Display.ClientSize.Height - ((Top + Bottom) + (Border * Int_cols - 1) + 200); // added 200 to make squares smaller than screen
+            int Available_Height = Display.ClientSize.Height - ((Top + Bottom) + (Border * Int_cols - 1) + 800); // added 200 to make squares smaller than screen
             // Calculate the Width of each element related to the size of the Form and number required
-            int Available_Width = Display.ClientSize.Width - ((Left + Right) + (Border * Int_rows - 1) + 200);
+            int Available_Width = Display.ClientSize.Width - ((Left + Right) + (Border * Int_rows - 1) + 400);
             Int_top = Top + 50;
-            Int_left=Left + 250; // added 150 to center the grid in the screen
+            Int_left=Left + 600; // added 150 to center the grid in the screen
             Int_Border = Border;
             Path_To_Picture = ImagePath;
 
-            Int_Element_Width = ImageElement_Width(Available_Width);
-            Int_Element_Height = ImageElement_Height(Available_Height);
+            Int_Element_Width = ImageElement_Width(Available_Width) - 100;
+            Int_Element_Height = ImageElement_Height(Available_Height) + 100;
 
             if ((Int_Element_Width < 5) || (Int_Element_Height < 5))
             {
@@ -269,6 +269,7 @@ namespace GUIImageArray
                 }
             }
         }
+
         private void E_Clicked(object sender, EventArgs e)
         {
             // Delegate the event to the caller
