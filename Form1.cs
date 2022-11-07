@@ -12,7 +12,8 @@ using GUIImageArray;
 using DynamicUI;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
-
+using System.Reflection.Emit;
+using Microsoft.Win32;
 
 namespace pairs
 {
@@ -35,25 +36,38 @@ namespace pairs
 
         public Form1()
         {
-
             InitializeComponent();
             create_player_1_panel();
             create_player_2_panel();
             create_image();
             //MessageBox.Show(str_Image_path);
+            center_label();
         }
 
         private void create_image()
         {
             var center_image = new PictureBox();
             center_image.Name = "center_image_png";  
-            center_image.Size = new Size(500, 500);
-            center_image.SizeMode = PictureBoxSizeMode.AutoSize;
+            center_image.Size = new Size(1000, 1000);
             center_image.BackColor = Color.Transparent;
-            center_image.BackgroundImage = Image.FromFile("C:\\Users\\kaytl\\source\\repos\\picture-thing\\Resources\\pear.png"); //change to str_image_path
-            //center_image.
-            center_image.Location = new Point((this.Width / 2) - (center_image.Width / 2), (this.Height / 2) - (center_image.Height / 2));
+            center_image.BackgroundImage = Image.FromFile(str_Image_path + "pears.png");
+            center_image.SizeMode = PictureBoxSizeMode.AutoSize;
+            center_image.BackgroundImageLayout = ImageLayout.Zoom;
+
+            center_image.Location = new Point((Screen.FromControl(this).Bounds.Width / 2) - (center_image.Width / 2), (Screen.FromControl(this).Bounds.Height / 2) - (center_image.Height / 2));
+
             this.Controls.Add(center_image);
+        }
+
+        private void center_label()
+        {
+            var center_label = new System.Windows.Forms.Label();
+            center_label.AutoSize = true;
+            center_label.Location = new Point(((this.Width - center_label.Width) / 2) - 200, 30);
+            center_label.Font = new Font("Microsoft Sans Serif", 50); //changes font 
+            center_label.TextAlign = ContentAlignment.MiddleCenter;
+            center_label.Text = "Pairs\nA Game of Two";
+            this.Controls.Add(center_label);
         }
 
         private void create_player_1_panel()
@@ -72,7 +86,7 @@ namespace pairs
             player_1_panel.AutoScroll = true;
 
             // Creates player 1 label
-            var player_1_title_label = new Label();
+            var player_1_title_label = new System.Windows.Forms.Label();
             player_1_title_label.AutoSize = true;
             player_1_title_label.Font = new Font("Microsoft Sans Serif", 16); //changes font 
             player_1_title_label.Text = "\nPlayer 1 Name:";
@@ -80,7 +94,7 @@ namespace pairs
             player_1_title_label.Dock = DockStyle.Top;
 
             // Creates player 1 label
-            var player_1_pairs_label = new Label();
+            var player_1_pairs_label = new System.Windows.Forms.Label();
             player_1_pairs_label.AutoSize = true;
             player_1_pairs_label.Font = new Font("Microsoft Sans Serif", 16); //changes font 
             player_1_pairs_label.Text = "\nPairs:";
@@ -126,7 +140,7 @@ namespace pairs
             player_2_panel.AutoScroll = true;
 
             // Creates player 1 label
-            var player_2_title_label = new Label();
+            var player_2_title_label = new System.Windows.Forms.Label();
             player_2_title_label.AutoSize = true;
             player_2_title_label.Font = new Font("Microsoft Sans Serif", 16); //changes font 
             player_2_title_label.Text = "\nPlayer 2 Name:";
@@ -134,7 +148,7 @@ namespace pairs
             player_2_title_label.Dock = DockStyle.Top;
 
             // Creates player 1 label
-            var player_2_pairs_label = new Label();
+            var player_2_pairs_label = new System.Windows.Forms.Label();
             player_2_pairs_label.AutoSize = true;
             player_2_pairs_label.Font = new Font("Microsoft Sans Serif", 16); //changes font 
             player_2_pairs_label.Text = "\nPairs:";
@@ -554,15 +568,42 @@ namespace pairs
                 }
 
                 int[] card_arrangement = assign_card(36); // gets the placement for the cards on the board
-                //set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
 
                 gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 20, str_Image_path);
                 gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
                 gimagearray.UpDateImages(int_board);
 
                 card_placement = Make2DArray(card_arrangement, 6, 6);
+
+                //show_cards_timer.Enabled = true;
+                //while (show_cards_timer.Enabled)
+                //{
+                //    set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
+                //}  
+
+                //card face up for 10 sec ^^^^
             }
-            
+        }
+
+        private void x6ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            x6ToolStripMenuItem.Checked = true;
+            x10ToolStripMenuItem.Checked = false;
+            x16ToolStripMenuItem.Checked = false;
+        }
+
+        private void x10ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            x6ToolStripMenuItem.Checked = false;
+            x10ToolStripMenuItem.Checked = true;
+            x16ToolStripMenuItem.Checked = false;
+        }
+
+        private void x16ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            x6ToolStripMenuItem.Checked = false;
+            x10ToolStripMenuItem.Checked = false;
+            x16ToolStripMenuItem.Checked = true;
         }
     }
 }

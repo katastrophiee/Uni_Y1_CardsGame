@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtB_Row = new System.Windows.Forms.TextBox();
             this.txtB_Col = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.row_lbl = new System.Windows.Forms.Label();
             this.menu_bar = new System.Windows.Forms.MenuStrip();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,9 +47,8 @@
             this.x16ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.show_cards_timer = new System.Windows.Forms.Timer(this.components);
             this.menu_bar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtB_Row
@@ -65,14 +65,14 @@
             this.txtB_Col.Size = new System.Drawing.Size(70, 20);
             this.txtB_Col.TabIndex = 2;
             // 
-            // label2
+            // row_lbl
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 700);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Row";
+            this.row_lbl.AutoSize = true;
+            this.row_lbl.Location = new System.Drawing.Point(5, 700);
+            this.row_lbl.Name = "row_lbl";
+            this.row_lbl.Size = new System.Drawing.Size(29, 13);
+            this.row_lbl.TabIndex = 4;
+            this.row_lbl.Text = "Row";
             // 
             // menu_bar
             // 
@@ -155,21 +155,26 @@
             // 
             // x6ToolStripMenuItem
             // 
+            this.x6ToolStripMenuItem.Checked = true;
+            this.x6ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.x6ToolStripMenuItem.Name = "x6ToolStripMenuItem";
             this.x6ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.x6ToolStripMenuItem.Text = "6 x 6";
+            this.x6ToolStripMenuItem.Click += new System.EventHandler(this.x6ToolStripMenuItem_Click);
             // 
             // x10ToolStripMenuItem
             // 
             this.x10ToolStripMenuItem.Name = "x10ToolStripMenuItem";
             this.x10ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.x10ToolStripMenuItem.Text = "10 x 10";
+            this.x10ToolStripMenuItem.Click += new System.EventHandler(this.x10ToolStripMenuItem_Click);
             // 
             // x16ToolStripMenuItem
             // 
             this.x16ToolStripMenuItem.Name = "x16ToolStripMenuItem";
             this.x16ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.x16ToolStripMenuItem.Text = "16 x 16";
+            this.x16ToolStripMenuItem.Click += new System.EventHandler(this.x16ToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -185,23 +190,13 @@
             this.abouToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.abouToolStripMenuItem.Text = "About";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(424, 247);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(370, 302);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(1078, 738);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.row_lbl);
             this.Controls.Add(this.txtB_Col);
             this.Controls.Add(this.txtB_Row);
             this.Controls.Add(this.menu_bar);
@@ -213,7 +208,6 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menu_bar.ResumeLayout(false);
             this.menu_bar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,7 +216,7 @@
         #endregion
         private System.Windows.Forms.TextBox txtB_Row;
         private System.Windows.Forms.TextBox txtB_Col;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label row_lbl;
         private System.Windows.Forms.MenuStrip menu_bar;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -239,7 +233,7 @@
         private System.Windows.Forms.ToolStripMenuItem x16ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem abouToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Timer show_cards_timer;
     }
 }
 
