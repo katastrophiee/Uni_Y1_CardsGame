@@ -9,16 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using GUIImageArray;
-using DynamicUI;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
-using System.Reflection.Emit;
-using Microsoft.Win32;
 
 namespace pairs
 {
 
-    public partial class Form1 : Form
+    public partial class Pairs : Form
     {
         int[,] int_board = new int[6, 6];
         int[,] card_placement = new int[6, 6];
@@ -34,7 +29,7 @@ namespace pairs
         string str_player_2_name;
         bool player_1_turn = false;
 
-        public Form1()
+        public Pairs()
         {
             InitializeComponent();
             create_player_1_panel();
@@ -61,12 +56,13 @@ namespace pairs
 
         private void center_label()
         {
-            var center_label = new System.Windows.Forms.Label();
+            var center_label = new Label();
             center_label.AutoSize = true;
             center_label.Location = new Point(((this.Width - center_label.Width) / 2) - 200, 30);
             center_label.Font = new Font("Microsoft Sans Serif", 50); //changes font 
             center_label.TextAlign = ContentAlignment.MiddleCenter;
             center_label.Text = "Pairs\nA Game of Two";
+            center_label.Name = "center_label_lbl";
             this.Controls.Add(center_label);
         }
 
@@ -86,7 +82,7 @@ namespace pairs
             player_1_panel.AutoScroll = true;
 
             // Creates player 1 label
-            var player_1_title_label = new System.Windows.Forms.Label();
+            var player_1_title_label = new Label();
             player_1_title_label.AutoSize = true;
             player_1_title_label.Font = new Font("Microsoft Sans Serif", 16); //changes font 
             player_1_title_label.Text = "\nPlayer 1 Name:";
@@ -94,7 +90,7 @@ namespace pairs
             player_1_title_label.Dock = DockStyle.Top;
 
             // Creates player 1 label
-            var player_1_pairs_label = new System.Windows.Forms.Label();
+            var player_1_pairs_label = new Label();
             player_1_pairs_label.AutoSize = true;
             player_1_pairs_label.Font = new Font("Microsoft Sans Serif", 16); //changes font 
             player_1_pairs_label.Text = "\nPairs:";
@@ -114,6 +110,8 @@ namespace pairs
             player_1_pairs_textbox.BorderStyle = BorderStyle.Fixed3D;
             player_1_pairs_textbox.Dock = player_1_panel.Dock;
             player_1_pairs_textbox.Dock = DockStyle.Top;
+            player_1_pairs_textbox.Text = "0";
+            player_1_pairs_textbox.Name = "player_1_pairs_txt";
             player_1_pairs_textbox.ReadOnly = true;
 
             // Add controls
@@ -168,7 +166,9 @@ namespace pairs
             player_2_pairs_textbox.BorderStyle = BorderStyle.Fixed3D;
             player_2_pairs_textbox.Dock = player_2_panel.Dock;
             player_2_pairs_textbox.Dock = DockStyle.Top;
+            player_2_pairs_textbox.Text = "0";
             player_2_pairs_textbox.ReadOnly = true;
+            player_2_pairs_textbox.Name = "player_2_pairs_txt";
 
             // Add controls
             player_2_panel.Controls.Add(player_2_title_label, 0, 0);
@@ -394,7 +394,7 @@ namespace pairs
             {
                 int_board[Int_Row, Int_Col] = card_placement[Int_Row, Int_Col];
 
-                MessageBox.Show(Convert.ToString(gimagearray));
+               // MessageBox.Show(Convert.ToString(gimagearray));
 
                 gimagearray.UpDateImages(int_board);
 
@@ -435,11 +435,15 @@ namespace pairs
                             if (player_1_turn == true)
                             {
                                 player_1_score += 1;
+                                TextBox player_1_pairs = (TextBox)Controls.Find("player_1_pairs_txt", true)[0];
+                                player_1_pairs.Text = Convert.ToString(player_1_score);
                                 MessageBox.Show($"It's a match! 1 point to {str_player_1_name}!");
                             }
                             else
                             {
                                 player_2_score += 1;
+                                TextBox player_2_pairs = (TextBox)Controls.Find("player_2_pairs_txt", true)[0];
+                                player_2_pairs.Text = Convert.ToString(player_2_score);
                                 MessageBox.Show($"It's a match! 1 point to {str_player_2_name}!");
                             }
 
@@ -524,9 +528,9 @@ namespace pairs
 
         private void change_turn()
         {
-            if (player_1_turn == true)
+            if (player_1_turn == true) // checks if its player 1s turn
             {
-                player_1_turn = false;
+                player_1_turn = false; //makes player 2s turn
                 MessageBox.Show("Player 2's turn.");
             }
             else
@@ -540,48 +544,59 @@ namespace pairs
         {
             TextBox player_1_name = (TextBox)Controls.Find("player_1_name_txt", true)[0]; //gets the value for player 1's name
             TextBox player_2_name = (TextBox)Controls.Find("player_2_name_txt", true)[0]; //does same for player 2
-            Random rnd = new Random();
-            player_1_turn = rnd.NextDouble() >= 0.5;
+            Random rnd = new Random(); //random
+            player_1_turn = rnd.NextDouble() >= 0.5; //randomly decides whos turn it is to start
 
-            if (player_1_name.Text == "")
+            if (player_1_name.Text == "") //checks if player 1 name is empty
             {
-                MessageBox.Show("Player 1 must have a name before the game starts");
+                MessageBox.Show("Player 1 must have a name before the game starts"); //error message if so
             }
-            else if (player_2_name.Text == "")
+            else if (player_2_name.Text == "") //checks if player 2 name is empty
             {
-                MessageBox.Show("Player 2 must have a name before the game starts");
+                MessageBox.Show("Player 2 must have a name before the game starts"); //error message if so
             }
             else
             {
-                player_2_name.ReadOnly = true;
-                player_1_name.ReadOnly = true;
+                player_2_name.ReadOnly = true; 
+                player_1_name.ReadOnly = true; //makes read only so the names can't be editted once started
 
-                str_player_1_name = player_1_name.Text;
-                str_player_2_name = player_2_name.Text;
-                if (player_1_turn == true)
+                Label title = (Label)Controls.Find("center_label_lbl", true)[0]; //looks for image and background and hides them
+                PictureBox background_image = (PictureBox)Controls.Find("center_image_png", true)[0];
+                title.Visible = false;
+                background_image.Visible = false;
+
+                str_player_1_name = player_1_name.Text; 
+                str_player_2_name = player_2_name.Text; //stores names
+                if (player_1_turn == true) 
                 {
                     MessageBox.Show("Player 1 starts!");
                 }
-                else
+                else //appropriate message box based on whos turn it is
                 {
                     MessageBox.Show("Player 2 starts!");
                 }
 
+                if (x6ToolStripMenuItem.Checked == true)
+                {
+                    show_cards_timer.Interval = 10000;
+                }
+
                 int[] card_arrangement = assign_card(36); // gets the placement for the cards on the board
+                show_cards_timer.Start();
 
-                gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 20, str_Image_path);
-                gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
-                gimagearray.UpDateImages(int_board);
+                if (show_cards_timer.Enabled == true)
+                {
+                    set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
+                }
+                //none of this works, fix :)
+                if (show_cards_timer.Enabled == false)
+                {
+                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 20, str_Image_path); //lays out the cards and picture boxes
+                    gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked); //adds events to the pictures for when clicked
+                    gimagearray.UpDateImages(int_board); //updates images
 
-                card_placement = Make2DArray(card_arrangement, 6, 6);
-
-                //show_cards_timer.Enabled = true;
-                //while (show_cards_timer.Enabled)
-                //{
-                //    set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
-                //}  
-
-                //card face up for 10 sec ^^^^
+                    card_placement = Make2DArray(card_arrangement, 6, 6); //makes the card placement a 2d array
+                }
             }
         }
 
@@ -604,6 +619,11 @@ namespace pairs
             x6ToolStripMenuItem.Checked = false;
             x10ToolStripMenuItem.Checked = false;
             x16ToolStripMenuItem.Checked = true;
+        }
+
+        private void show_cards_timer_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }

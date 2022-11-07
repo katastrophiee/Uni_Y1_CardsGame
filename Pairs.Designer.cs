@@ -1,6 +1,6 @@
 ﻿namespace pairs
 {
-    partial class Form1
+    partial class Pairs
     {
         /// <summary>
         /// Required designer variable.
@@ -190,7 +190,11 @@
             this.abouToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.abouToolStripMenuItem.Text = "About";
             // 
-            // Form1
+            // show_cards_timer
+            // 
+            this.show_cards_timer.Tick += new System.EventHandler(this.show_cards_timer_Tick);
+            // 
+            // Pairs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -201,7 +205,7 @@
             this.Controls.Add(this.txtB_Row);
             this.Controls.Add(this.menu_bar);
             this.MainMenuStrip = this.menu_bar;
-            this.Name = "Form1";
+            this.Name = "Pairs";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pairs";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
