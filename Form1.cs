@@ -39,7 +39,19 @@ namespace pairs
             InitializeComponent();
             create_player_1_panel();
             create_player_2_panel();
+            create_image();
             //MessageBox.Show(str_Image_path);
+        }
+
+        private void create_image()
+        {
+            var center_image = new PictureBox();
+            center_image.Name = "center_image_png";
+            center_image.Location = new Point(0, 0);
+            center_image.Size = new Size(100, 100);
+            center_image.SizeMode = PictureBoxSizeMode.CenterImage;
+            center_image.BackColor = Color.Transparent;
+            //center_image.Image = Properties.S
         }
 
         private void create_player_1_panel()
