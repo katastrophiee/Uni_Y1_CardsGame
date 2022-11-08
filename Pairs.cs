@@ -32,6 +32,7 @@ namespace pairs
         string str_player_2_name;
         bool player_1_turn = false;
         int board_size = 36;
+        int max_score = 18;
 
         public Pairs()
         {
@@ -373,88 +374,107 @@ namespace pairs
 
         private void Which_Element_Clicked(object sender, EventArgs e)
         {
-            int Int_Row = gimagearray.Get_Row(sender);
-            int Int_Col = gimagearray.Get_Col(sender);
-
-            txtB_Row.Text = Convert.ToString(Int_Row);
-            txtB_Col.Text = Convert.ToString(Int_Col);
-
-            if (int_board[Int_Row, Int_Col] != 55)
+            if (!check_games_finished())
             {
-                int_board[Int_Row, Int_Col] = card_placement[Int_Row, Int_Col];
+                int Int_Row = gimagearray.Get_Row(sender);
+                int Int_Col = gimagearray.Get_Col(sender);
 
-               // MessageBox.Show(Convert.ToString(gimagearray));
+                txtB_Row.Text = Convert.ToString(Int_Row);
+                txtB_Col.Text = Convert.ToString(Int_Col);
 
-                gimagearray.UpDateImages(int_board);
-
-                if (first_card_selected_row == -1 && first_card_selected_column == -1)
+                if (int_board[Int_Row, Int_Col] != 55)
                 {
-                    first_card_selected_row = Int_Row;
-                    first_card_selected_column = Int_Col;
-                }
-                else
-                {
-                    if (first_card_selected_row == Int_Row && first_card_selected_column == Int_Col)
+                    int_board[Int_Row, Int_Col] = card_placement[Int_Row, Int_Col];
+
+                    // MessageBox.Show(Convert.ToString(gimagearray));
+
+                    gimagearray.UpDateImages(int_board);
+
+                    if (first_card_selected_row == -1 && first_card_selected_column == -1)
                     {
-                        MessageBox.Show("Please select a different card!");
+                        first_card_selected_row = Int_Row;
+                        first_card_selected_column = Int_Col;
                     }
                     else
                     {
-                        second_card_selected_row = Int_Row;
-                        second_card_selected_column = Int_Col;
-
-                        bool cards_match = check_for_match();
-
-                        if (!cards_match)
+                        if (first_card_selected_row == Int_Row && first_card_selected_column == Int_Col)
                         {
-                            MessageBox.Show("Not a match");
-                            int_board[first_card_selected_row, first_card_selected_column] = 56;
-                            int_board[second_card_selected_row, second_card_selected_column] = 56;
-
-                            first_card_selected_row = -1;
-                            second_card_selected_row = -1;
-                            first_card_selected_column = -1;
-                            second_card_selected_column = -1;
-                            gimagearray.UpDateImages(int_board);
-                            change_turn();
-
+                            MessageBox.Show("Please select a different card!");
                         }
                         else
                         {
-                            if (player_1_turn == true)
+                            second_card_selected_row = Int_Row;
+                            second_card_selected_column = Int_Col;
+
+                            bool cards_match = check_for_match();
+
+                            if (!cards_match)
                             {
-                                player_1_score += 1;
-                                TextBox player_1_pairs = (TextBox)Controls.Find("player_1_pairs_txt", true)[0];
-                                player_1_pairs.Text = Convert.ToString(player_1_score);
-                                MessageBox.Show($"It's a match! 1 point to {str_player_1_name}!");
+                                MessageBox.Show("Not a match");
+                                int_board[first_card_selected_row, first_card_selected_column] = 56;
+                                int_board[second_card_selected_row, second_card_selected_column] = 56;
+
+                                first_card_selected_row = -1;
+                                second_card_selected_row = -1;
+                                first_card_selected_column = -1;
+                                second_card_selected_column = -1;
+                                gimagearray.UpDateImages(int_board);
+                                change_turn();
+
                             }
                             else
                             {
-                                player_2_score += 1;
-                                TextBox player_2_pairs = (TextBox)Controls.Find("player_2_pairs_txt", true)[0];
-                                player_2_pairs.Text = Convert.ToString(player_2_score);
-                                MessageBox.Show($"It's a match! 1 point to {str_player_2_name}!");
+                                if (player_1_turn == true)
+                                {
+                                    player_1_score += 1;
+                                    TextBox player_1_pairs = (TextBox)Controls.Find("player_1_pairs_txt", true)[0];
+                                    player_1_pairs.Text = Convert.ToString(player_1_score);
+                                    MessageBox.Show($"It's a match! 1 point to {str_player_1_name}!");
+                                }
+                                else
+                                {
+                                    player_2_score += 1;
+                                    TextBox player_2_pairs = (TextBox)Controls.Find("player_2_pairs_txt", true)[0];
+                                    player_2_pairs.Text = Convert.ToString(player_2_score);
+                                    MessageBox.Show($"It's a match! 1 point to {str_player_2_name}!");
+                                }
+
+
+                                int_board[first_card_selected_row, first_card_selected_column] = 55;
+                                int_board[second_card_selected_row, second_card_selected_column] = 55;
+
+                                first_card_selected_row = -1;
+                                second_card_selected_row = -1;
+                                first_card_selected_column = -1;
+                                second_card_selected_column = -1;
+                                gimagearray.UpDateImages(int_board);
+                                //cards = cards.Concat(cards).ToArray();
+
                             }
-
-
-                            int_board[first_card_selected_row, first_card_selected_column] = 55;
-                            int_board[second_card_selected_row, second_card_selected_column] = 55;
-
-                            first_card_selected_row = -1;
-                            second_card_selected_row = -1;
-                            first_card_selected_column = -1;
-                            second_card_selected_column = -1;
-                            gimagearray.UpDateImages(int_board);
-                            //cards = cards.Concat(cards).ToArray();
-
-                        } 
+                        }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("This card has already been matched, use a different one.");
                 }
             }
             else
             {
-                MessageBox.Show("This card has already been matched, use a different one.");
+                if (player_1_score < player_2_score)
+                {
+                    MessageBox.Show($"{str_player_2_name} wins!");
+                }   
+                else if (player_2_score < player_1_score)
+                {
+                    MessageBox.Show($"{str_player_1_name} wins!");
+                }
+                else
+                {
+                    MessageBox.Show("It's a draw!");
+                }
             }
+
 
 
             //if (int_board[Int_Row,Int_Col] != 56 && int_board[Int_Row, Int_Col] != 55)
@@ -605,18 +625,18 @@ namespace pairs
 
                 if (board_size == 36)
                 {
-                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 10, str_Image_path); //lays out the cards and picture boxes
+                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 150, 10, str_Image_path); //lays out the cards and picture boxes
                 }
                 else if (board_size == 100)
                 {
-                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 10, str_Image_path); //lays out the cards and picture boxes
+                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 150, 10, str_Image_path); //lays out the cards and picture boxes
                 }
                 else
                 {
-                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 10, str_Image_path); //lays out the cards and picture boxes
+                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 150, 10, str_Image_path); //lays out the cards and picture boxes
                 }
 
-                gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked); //adds events to the pictures for when clicked
+                //gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked); //adds events to the pictures for when clicked
 
                 if (x6ToolStripMenuItem.Checked == true)
                 {
@@ -632,7 +652,7 @@ namespace pairs
                 }
 
                 set_board_to_cards(board_size, card_placement_1d); // sets all the cards on the board to be face up
-                //gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+                gimagearray.Which_Element_Clicked -= new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
                 gimagearray.UpDateImages(int_board);
                 show_cards_timer.Start();
             }
@@ -690,8 +710,21 @@ namespace pairs
                     int_board[Row, Column] = 56;
                 }
             }
+            gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
             gimagearray.UpDateImages(int_board);
             show_cards_timer.Stop();
+        }
+
+        private bool check_games_finished()
+        {
+            if (player_1_score + player_2_score == max_score)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
