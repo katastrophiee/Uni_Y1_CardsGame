@@ -53,14 +53,14 @@
             // 
             // txtB_Row
             // 
-            this.txtB_Row.Location = new System.Drawing.Point(4, 716);
+            this.txtB_Row.Location = new System.Drawing.Point(219, 49);
             this.txtB_Row.Name = "txtB_Row";
             this.txtB_Row.Size = new System.Drawing.Size(70, 20);
             this.txtB_Row.TabIndex = 1;
             // 
             // txtB_Col
             // 
-            this.txtB_Col.Location = new System.Drawing.Point(80, 716);
+            this.txtB_Col.Location = new System.Drawing.Point(295, 49);
             this.txtB_Col.Name = "txtB_Col";
             this.txtB_Col.Size = new System.Drawing.Size(70, 20);
             this.txtB_Col.TabIndex = 2;
@@ -68,7 +68,7 @@
             // row_lbl
             // 
             this.row_lbl.AutoSize = true;
-            this.row_lbl.Location = new System.Drawing.Point(5, 700);
+            this.row_lbl.Location = new System.Drawing.Point(220, 33);
             this.row_lbl.Name = "row_lbl";
             this.row_lbl.Size = new System.Drawing.Size(29, 13);
             this.row_lbl.TabIndex = 4;

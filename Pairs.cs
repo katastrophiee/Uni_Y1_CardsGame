@@ -17,17 +17,21 @@ namespace pairs
     {
         int[,] int_board = new int[6, 6];
         int[,] card_placement = new int[6, 6];
+        int[] card_placement_1d = new int[36];
         int first_card_selected_row = -1;
         int second_card_selected_row = -1;
         int first_card_selected_column = -1;
         int second_card_selected_column = -1;
         int player_1_score = 0;
         int player_2_score = 0;
+        int row_amount = 5;
+        int column_amount = 5;
         GImageArray gimagearray;
         string str_Image_path = Directory.GetCurrentDirectory() + "\\Cards\\";
         string str_player_1_name;
         string str_player_2_name;
         bool player_1_turn = false;
+        int board_size = 36;
 
         public Pairs()
         {
@@ -220,28 +224,14 @@ namespace pairs
 
         //}
 
-        private bool check_box_empty(TextBox name)
+        private int[] assign_card()
         {
-            if (name.Text == "")
-            {
-                MessageBox.Show("Please populate both names before starting.");
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
-        }
-
-        private int[] assign_card(int amount_of_cards)
-        {
-            int[] cards = new int[amount_of_cards / 2]; //makes array containing half the amount of total cards
+            int[] cards = new int[(board_size / 2)]; //makes array containing half the amount of total cards
             Random rnd = new Random(); //makes random
 
-            for (int count = 0; count != (amount_of_cards / 2); count++) //does a count up to half the amount of total cards
+            for (int count = 0; count != (board_size / 2); count++) //does a count up to half the amount of total cards
             {
-                int card = rnd.Next(53); //generates random number between 1 and 53 
+                int card = rnd.Next(54); //generates random number between 1 and 53 
 
                 if (!cards.Contains(card)) //checks that this card has not already been added to the array
                 {
@@ -256,18 +246,15 @@ namespace pairs
             cards = cards.Concat(cards).ToArray(); //duplicates all of the items in the list to get 2 of each card
             cards = cards.OrderBy(x => rnd.Next()).ToArray(); //randomises the order of the numbers within the list
 
-
-
-
             return cards; //returns the card placement
         }
 
         private void set_board_to_cards(int amount_of_cards, int[] cards)
         {
             int item = 0; //starts item to know which card we're on
-            for (int Row = 0; Row <= 5; Row++) //iterates through each row
+            for (int Row = 0; Row <= row_amount; Row++) //iterates through each row
             {
-                for (int Column = 0; Column <= 5; Column++) //iterates through each column
+                for (int Column = 0; Column <= column_amount; Column++) //iterates through each column
                 {
                     int_board[Row, Column] = cards[item]; //assigns this picture with the correct card
                     if (item != amount_of_cards) //checks we've not run out of cards to set the picture for
@@ -276,13 +263,15 @@ namespace pairs
                     }
                 }
             }
+
+            gimagearray.UpDateImages(int_board);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            for (int Row = 0; Row <= 5; Row++)
+            for (int Row = 0; Row <= row_amount; Row++)
             {
-                for (int Column = 0; Column <= 5; Column++)
+                for (int Column = 0; Column <= column_amount; Column++)
                 {
                     //if ((Column == 0) && (Row == 0))
                     //{
@@ -547,16 +536,18 @@ namespace pairs
             Random rnd = new Random(); //random
             player_1_turn = rnd.NextDouble() >= 0.5; //randomly decides whos turn it is to start
 
-            if (player_1_name.Text == "") //checks if player 1 name is empty
+            if (String.IsNullOrEmpty(player_1_name.Text)) //player_1_name.Text == "") //checks if player 1 name is empty
             {
                 MessageBox.Show("Player 1 must have a name before the game starts"); //error message if so
             }
-            else if (player_2_name.Text == "") //checks if player 2 name is empty
+            else if (String.IsNullOrEmpty(player_2_name.Text)) //checks if player 2 name is empty
             {
                 MessageBox.Show("Player 2 must have a name before the game starts"); //error message if so
             }
             else
             {
+                MessageBox.Show(Convert.ToString(board_size));
+
                 player_2_name.ReadOnly = true; 
                 player_1_name.ReadOnly = true; //makes read only so the names can't be editted once started
 
@@ -576,27 +567,74 @@ namespace pairs
                     MessageBox.Show("Player 2 starts!");
                 }
 
+                MessageBox.Show("Cards show");
+
                 if (x6ToolStripMenuItem.Checked == true)
                 {
                     show_cards_timer.Interval = 10000;
                 }
+                else if (x10ToolStripMenuItem.Checked == true)
+                {
+                    show_cards_timer.Interval = 15000;
+                }
+                else
+                {
+                    show_cards_timer.Interval = 20000;
+                }
 
-                int[] card_arrangement = assign_card(36); // gets the placement for the cards on the board
+
+                if (board_size == 256)
+                {
+                    board_size = 106;
+                }
+                    card_placement_1d = assign_card(); // gets the placement for the cards on the board
+                if (board_size == 106)
+                {
+                    card_placement_1d = card_placement_1d.Concat(card_placement_1d).ToArray(); //duplicates all of the items in the list to get 2 of each card
+
+                    board_size = 44;
+
+                    int[] left_over = assign_card();
+
+                    card_placement_1d = card_placement_1d.Concat(left_over).ToArray(); //duplicates all of the items in the list to get 2 of each card
+                    card_placement_1d = card_placement_1d.OrderBy(x => rnd.Next()).ToArray();
+
+                    board_size = 256;
+                }
+
+
+                if (board_size == 36)
+                {
+                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 10, str_Image_path); //lays out the cards and picture boxes
+                }
+                else if (board_size == 100)
+                {
+                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 10, str_Image_path); //lays out the cards and picture boxes
+                }
+                else
+                {
+                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 10, str_Image_path); //lays out the cards and picture boxes
+                }
+
+                gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked); //adds events to the pictures for when clicked
+
+                if (x6ToolStripMenuItem.Checked == true)
+                {
+                    card_placement = Make2DArray(card_placement_1d, 6, 6); //makes the card placement a 2d array
+                }
+                else if (x10ToolStripMenuItem.Checked == true)
+                {
+                    card_placement = Make2DArray(card_placement_1d, 10, 10); //makes the card placement a 2d array
+                }
+                else 
+                {
+                    card_placement = Make2DArray(card_placement_1d, 16, 16); //makes the card placement a 2d array
+                }
+
+                set_board_to_cards(board_size, card_placement_1d); // sets all the cards on the board to be face up
+                //gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked);
+                gimagearray.UpDateImages(int_board);
                 show_cards_timer.Start();
-
-                if (show_cards_timer.Enabled == true)
-                {
-                    set_board_to_cards(36, card_arrangement); // sets all the cards on the board to be face up
-                }
-                //none of this works, fix :)
-                if (show_cards_timer.Enabled == false)
-                {
-                    gimagearray = new GImageArray(this, int_board, 10, 10, 10, 300, 20, str_Image_path); //lays out the cards and picture boxes
-                    gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked); //adds events to the pictures for when clicked
-                    gimagearray.UpDateImages(int_board); //updates images
-
-                    card_placement = Make2DArray(card_arrangement, 6, 6); //makes the card placement a 2d array
-                }
             }
         }
 
@@ -605,6 +643,12 @@ namespace pairs
             x6ToolStripMenuItem.Checked = true;
             x10ToolStripMenuItem.Checked = false;
             x16ToolStripMenuItem.Checked = false;
+            board_size = 36;
+            int_board = new int[6, 6];
+            card_placement = new int[6, 6];
+            card_placement_1d = new int[36];
+            row_amount = 5;
+            column_amount = 5;
         }
 
         private void x10ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -612,6 +656,12 @@ namespace pairs
             x6ToolStripMenuItem.Checked = false;
             x10ToolStripMenuItem.Checked = true;
             x16ToolStripMenuItem.Checked = false;
+            board_size = 100;
+            int_board = new int[10, 10];
+            card_placement = new int[10, 10];
+            int[] card_placement_1d = new int[100];
+            row_amount = 9;
+            column_amount = 9;
         }
 
         private void x16ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -619,11 +669,29 @@ namespace pairs
             x6ToolStripMenuItem.Checked = false;
             x10ToolStripMenuItem.Checked = false;
             x16ToolStripMenuItem.Checked = true;
+            board_size = 256;
+            int_board = new int[16, 16];
+            card_placement = new int[16, 16];
+            int[] card_placement_1d = new int[256];
+            row_amount = 15;
+            column_amount = 15;
+
+            // 256/2 = 128 unique cards needed
+            //deck is 53, will need whole deck twice (106)
+            //need 22 unique cards after
         }
 
         private void show_cards_timer_Tick(object sender, EventArgs e)
         {
-
+            for (int Row = 0; Row <= row_amount; Row++)
+            {
+                for (int Column = 0; Column <= column_amount; Column++)
+                {
+                    int_board[Row, Column] = 56;
+                }
+            }
+            gimagearray.UpDateImages(int_board);
+            show_cards_timer.Stop();
         }
     }
 }
