@@ -10,8 +10,6 @@ namespace DynamicUI
 {
     class DynamicUI : UserControl
     {
-        private Form GuiForm;
 
-     
     }
 }

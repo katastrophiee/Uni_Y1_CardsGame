@@ -49,6 +49,7 @@
     <Compile Include="DynamicUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="MyDialogs.cs" />
     <Compile Include="Pairs.cs">
       <SubType>Form</SubType>
     </Compile>
