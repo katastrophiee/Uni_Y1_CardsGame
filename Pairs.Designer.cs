@@ -37,18 +37,19 @@
             this.retrieve_game_menu_btn = new System.Windows.Forms.ToolStripMenuItem();
             this.serpToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.exit_menu_btn = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settings_menu_btn = new System.Windows.Forms.ToolStripMenuItem();
             this.sizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.x6ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.x10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.x16ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.abouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.help_menu_btn = new System.Windows.Forms.ToolStripMenuItem();
+            this.about_btn = new System.Windows.Forms.ToolStripMenuItem();
             this.show_cards_timer = new System.Windows.Forms.Timer(this.components);
             this.player_2_pnl = new System.Windows.Forms.Panel();
             this.player_2_turn_lbl = new System.Windows.Forms.Label();
             this.player_2_score_txt = new System.Windows.Forms.TextBox();
             this.player_2_cards_box = new System.Windows.Forms.GroupBox();
+            this.copyright_lbl = new System.Windows.Forms.Label();
             this.player_2_second_card_png = new System.Windows.Forms.PictureBox();
             this.player_2_first_card_png = new System.Windows.Forms.PictureBox();
             this.player_2_pairs_lbl = new System.Windows.Forms.Label();
@@ -66,6 +67,8 @@
             this.main_menu_lbl = new System.Windows.Forms.Label();
             this.main_menu_png = new System.Windows.Forms.PictureBox();
             this.show_picked_cards_timer = new System.Windows.Forms.Timer(this.components);
+            this.cards_selected_player_1_timer = new System.Windows.Forms.Timer(this.components);
+            this.cards_selected_player_2_timer = new System.Windows.Forms.Timer(this.components);
             this.menu_bar.SuspendLayout();
             this.player_2_pnl.SuspendLayout();
             this.player_2_cards_box.SuspendLayout();
@@ -83,8 +86,8 @@
             this.menu_bar.BackColor = System.Drawing.Color.Azure;
             this.menu_bar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.game_menu_btn,
-            this.settingsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.settings_menu_btn,
+            this.help_menu_btn});
             this.menu_bar.Location = new System.Drawing.Point(0, 0);
             this.menu_bar.Name = "menu_bar";
             this.menu_bar.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
@@ -157,15 +160,15 @@
             this.exit_menu_btn.Size = new System.Drawing.Size(205, 30);
             this.exit_menu_btn.Text = "Exit";
             // 
-            // settingsToolStripMenuItem
+            // settings_menu_btn
             // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settings_menu_btn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sizeToolStripMenuItem});
-            this.settingsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(91, 29);
-            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settings_menu_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settings_menu_btn.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.settings_menu_btn.Name = "settings_menu_btn";
+            this.settings_menu_btn.Size = new System.Drawing.Size(91, 29);
+            this.settings_menu_btn.Text = "Settings";
             // 
             // sizeToolStripMenuItem
             // 
@@ -206,23 +209,24 @@
             this.x16ToolStripMenuItem.Text = "16 x 16";
             this.x16ToolStripMenuItem.Click += new System.EventHandler(this.x16ToolStripMenuItem_Click);
             // 
-            // helpToolStripMenuItem
+            // help_menu_btn
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.abouToolStripMenuItem});
-            this.helpToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(63, 29);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.help_menu_btn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.about_btn});
+            this.help_menu_btn.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.help_menu_btn.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.help_menu_btn.Name = "help_menu_btn";
+            this.help_menu_btn.Size = new System.Drawing.Size(63, 29);
+            this.help_menu_btn.Text = "Help";
             // 
-            // abouToolStripMenuItem
+            // about_btn
             // 
-            this.abouToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
-            this.abouToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.abouToolStripMenuItem.Name = "abouToolStripMenuItem";
-            this.abouToolStripMenuItem.Size = new System.Drawing.Size(135, 30);
-            this.abouToolStripMenuItem.Text = "About";
+            this.about_btn.BackColor = System.Drawing.Color.Azure;
+            this.about_btn.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.about_btn.Name = "about_btn";
+            this.about_btn.Size = new System.Drawing.Size(135, 30);
+            this.about_btn.Text = "About";
+            this.about_btn.Click += new System.EventHandler(this.about_btn_Click);
             // 
             // show_cards_timer
             // 
@@ -273,6 +277,7 @@
             // 
             // player_2_cards_box
             // 
+            this.player_2_cards_box.Controls.Add(this.copyright_lbl);
             this.player_2_cards_box.Controls.Add(this.player_2_second_card_png);
             this.player_2_cards_box.Controls.Add(this.player_2_first_card_png);
             this.player_2_cards_box.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -283,6 +288,18 @@
             this.player_2_cards_box.TabStop = false;
             this.player_2_cards_box.Text = "Cards Selected";
             // 
+            // copyright_lbl
+            // 
+            this.copyright_lbl.AutoSize = true;
+            this.copyright_lbl.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.copyright_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.copyright_lbl.Location = new System.Drawing.Point(12, 353);
+            this.copyright_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.copyright_lbl.Name = "copyright_lbl";
+            this.copyright_lbl.Size = new System.Drawing.Size(216, 13);
+            this.copyright_lbl.TabIndex = 16;
+            this.copyright_lbl.Text = "Copright © 2022 Kaytlen Tommis-birkett\r\n";
+            // 
             // player_2_second_card_png
             // 
             this.player_2_second_card_png.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -291,7 +308,6 @@
             this.player_2_second_card_png.Size = new System.Drawing.Size(123, 165);
             this.player_2_second_card_png.TabIndex = 13;
             this.player_2_second_card_png.TabStop = false;
-            this.player_2_second_card_png.Visible = false;
             // 
             // player_2_first_card_png
             // 
@@ -414,7 +430,6 @@
             this.player_1_second_card_png.Size = new System.Drawing.Size(125, 165);
             this.player_1_second_card_png.TabIndex = 13;
             this.player_1_second_card_png.TabStop = false;
-            this.player_1_second_card_png.Visible = false;
             // 
             // player_1_first_card_png
             // 
@@ -455,7 +470,7 @@
             // 
             this.main_menu_lbl.AutoSize = true;
             this.main_menu_lbl.Font = new System.Drawing.Font("Segoe UI", 36F);
-            this.main_menu_lbl.Location = new System.Drawing.Point(486, 114);
+            this.main_menu_lbl.Location = new System.Drawing.Point(486, 125);
             this.main_menu_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.main_menu_lbl.Name = "main_menu_lbl";
             this.main_menu_lbl.Size = new System.Drawing.Size(349, 130);
@@ -477,6 +492,16 @@
             this.show_picked_cards_timer.Interval = 1000;
             this.show_picked_cards_timer.Tick += new System.EventHandler(this.show_picked_cards_timer_Tick);
             // 
+            // cards_selected_player_1_timer
+            // 
+            this.cards_selected_player_1_timer.Interval = 10000;
+            this.cards_selected_player_1_timer.Tick += new System.EventHandler(this.cards_selected_player_1_timer_Tick);
+            // 
+            // cards_selected_player_2_timer
+            // 
+            this.cards_selected_player_2_timer.Interval = 10000;
+            this.cards_selected_player_2_timer.Tick += new System.EventHandler(this.cards_selected_player_2_timer_Tick);
+            // 
             // Pairs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -497,12 +522,15 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pairs";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Pairs_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.SizeChanged += new System.EventHandler(this.Pairs_SizeChanged);
             this.menu_bar.ResumeLayout(false);
             this.menu_bar.PerformLayout();
             this.player_2_pnl.ResumeLayout(false);
             this.player_2_pnl.PerformLayout();
             this.player_2_cards_box.ResumeLayout(false);
+            this.player_2_cards_box.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player_2_second_card_png)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.player_2_first_card_png)).EndInit();
             this.player_1_pnl.ResumeLayout(false);
@@ -518,8 +546,8 @@
 
         #endregion
         private System.Windows.Forms.MenuStrip menu_bar;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settings_menu_btn;
+        private System.Windows.Forms.ToolStripMenuItem help_menu_btn;
         private System.Windows.Forms.ToolStripMenuItem game_menu_btn;
         private System.Windows.Forms.ToolStripMenuItem new_game_menu_btn;
         private System.Windows.Forms.ToolStripSeparator sepToolStripMenuItem;
@@ -531,7 +559,7 @@
         private System.Windows.Forms.ToolStripMenuItem x6ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem x10ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem x16ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem abouToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem about_btn;
         private System.Windows.Forms.Timer show_cards_timer;
         private System.Windows.Forms.Panel player_2_pnl;
         private System.Windows.Forms.Panel player_1_pnl;
@@ -554,6 +582,9 @@
         private System.Windows.Forms.Label player_1_turn_lbl;
         private System.Windows.Forms.Label player_2_turn_lbl;
         private System.Windows.Forms.Timer show_picked_cards_timer;
+        private System.Windows.Forms.Label copyright_lbl;
+        private System.Windows.Forms.Timer cards_selected_player_1_timer;
+        private System.Windows.Forms.Timer cards_selected_player_2_timer;
     }
 }
 

@@ -117,19 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menu_bar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="show_cards_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>107, 15</value>
-  </metadata>
-  <metadata name="show_picked_cards_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>255, 15</value>
-  </metadata>
-  <metadata name="cards_selected_player_1_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>444, 15</value>
-  </metadata>
-  <metadata name="cards_selected_player_2_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>658, 15</value>
-  </metadata>
+  <data name="description_txt.Text" xml:space="preserve">
+    <value>Description :
+
+The "Pairs v1.0", application was developed as an example to first year Under Graduates on the module “Programming for Computing” at Sheffield Hallam University.
+ 
+The application shows the usage of the following components, PictureBox/es, TextBox and Timer. In addition, it introduces secondary Windows and covers Arrays, Scope e.g., Local and Global variables. 
+
+The application was created by Dr Peter O’Neill, the Module Leader.</value>
+  </data>
 </root>

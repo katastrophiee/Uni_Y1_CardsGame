@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using GUIImageArray;
 using MyDialogs;
-
+using pain;
 
 namespace pairs
 {
@@ -49,7 +49,7 @@ namespace pairs
         private void create_image()
         {
             var center_image = new PictureBox();
-            center_image.Name = "center_image_png";  
+            center_image.Name = "center_image_png";
             center_image.Size = new Size(1000, 1000);
             center_image.BackColor = Color.Transparent;
             center_image.BackgroundImage = Image.FromFile(str_Image_path + "pears.png");
@@ -276,6 +276,11 @@ namespace pairs
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            int multiplier = this.Width / 1336;
+            main_menu_lbl.Width *= multiplier;
+            main_menu_lbl.Left = (this.Width - main_menu_lbl.Width) / 2;
+            main_menu_png.Width *= multiplier;
+            main_menu_png.Left = (this.Width - main_menu_png.Width) / 2;
             //for (int Row = 0; Row <= row_amount; Row++)
             //{
             //    for (int Column = 0; Column <= column_amount; Column++)
@@ -402,10 +407,12 @@ namespace pairs
                             if (player_1_turn == true)
                             {
                                 player_1_first_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
+                                player_1_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
                             }
                             else
                             {
                                 player_2_first_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
+                                player_2_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
                             }
                         }
                         else
@@ -422,115 +429,73 @@ namespace pairs
                                 if (player_1_turn == true)
                                 {
                                     player_1_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[second_card_selected_row, second_card_selected_column]) + ".png");
-                                    player_1_second_card_png.Visible = true;
+                                    cards_selected_player_1_timer.Start();
+
+
                                 }
                                 else
                                 {
                                     player_2_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[second_card_selected_row, second_card_selected_column]) + ".png");
-                                    player_2_second_card_png.Visible = true;
+                                    cards_selected_player_2_timer.Start();
                                 }
                                 show_picked_cards_timer.Start();
-                                if (!check_for_match())
-                                {
-                                    //int_board[first_card_selected_row, first_card_selected_column] = 56;
-                                    //int_board[second_card_selected_row, second_card_selected_column] = 56;
-                                    //gimagearray.UpDateImages(int_board);
-                                    change_turn();
-                                }
-                                else
-                                {
-                                    //match_message_lbl.Visible = true;
-                                    //label_fade_timer.Start();
-                                    if (player_1_turn == true)
-                                    {
-                                        player_1_score += 1;
-                                        player_1_score_txt.Text = Convert.ToString(player_1_score);
-                                    }
-                                    else
-                                    {
-                                        player_2_score += 1;
-                                        player_2_score_txt.Text = Convert.ToString(player_2_score);
-                                    }
 
-                                    int_board[first_card_selected_row, first_card_selected_column] = 55;
-                                    int_board[second_card_selected_row, second_card_selected_column] = 55;
-                                    gimagearray.UpDateImages(int_board);
-
-                                    if (check_games_finished())
-                                    {
-                                        if (player_1_score < player_2_score)
-                                        {
-                                            MessageBox.Show($"{player_2_name_txt.Text} wins!");
-                                        }
-                                        else if (player_2_score < player_1_score)
-                                        {
-                                            MessageBox.Show($"{player_1_name_txt.Text} wins!");
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("It's a draw!");
-                                        }
-                                        game_started = false;
-                                        reset_board();
-                                    }
-                                }
-                               
                             }
                         }
                     }
-                }
-                else
-                {
-                    MessageBox.Show("This card has already been matched, use a different one."); //error message if cards already been used in a pair
+                    else
+                    {
+                        MessageBox.Show("This card has already been matched, use a different one."); //error message if cards already been used in a pair
+                    }
                 }
             }
-                //else
-                //{
-                //    if (player_1_score < player_2_score)
-                //    {
-                //        MessageBox.Show($"{str_player_2_name} wins!");
-                //    }
-                //    else if (player_2_score < player_1_score)
-                //    {
-                //        MessageBox.Show($"{str_player_1_name} wins!");
-                //    }
-                //    else
-                //    {
-                //        MessageBox.Show("It's a draw!");
-                //    }
-                //}
+            //else
+            //{
+            //    if (player_1_score < player_2_score)
+            //    {
+            //        MessageBox.Show($"{str_player_2_name} wins!");
+            //    }
+            //    else if (player_2_score < player_1_score)
+            //    {
+            //        MessageBox.Show($"{str_player_1_name} wins!");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("It's a draw!");
+            //    }
+            //}
 
 
 
-                //if (int_board[Int_Row,Int_Col] != 56 && int_board[Int_Row, Int_Col] != 55)
-                //{
-                //    int_board[Int_Row, Int_Col] = 55;
-                //}
-                //{
-                //    int_board[Int_Row, Int_Col] = 55;
-                //}
-                //else
-                //{
-                //    int_board[Int_Row, Int_Col] = 56;
-                //}
-                //int_board[Int_Row, Int_Col] = 0;
+            //if (int_board[Int_Row,Int_Col] != 56 && int_board[Int_Row, Int_Col] != 55)
+            //{
+            //    int_board[Int_Row, Int_Col] = 55;
+            //}
+            //{
+            //    int_board[Int_Row, Int_Col] = 55;
+            //}
+            //else
+            //{
+            //    int_board[Int_Row, Int_Col] = 56;
+            //}
+            //int_board[Int_Row, Int_Col] = 0;
 
 
         }
 
-            private bool check_for_match()
+        private bool check_for_match()
+        {
+            if (card_placement[first_card_selected_row, first_card_selected_column]
+                == card_placement[second_card_selected_row, second_card_selected_column])
             {
-                if (card_placement[first_card_selected_row, first_card_selected_column]
-                    == card_placement[second_card_selected_row, second_card_selected_column])
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
-        
+            else
+            {
+                return false;
+            }
+        }
+
 
         //private void turn_card_back(object sender, EventArgs e)
         //{
@@ -742,12 +707,12 @@ namespace pairs
                     player_2_turn_lbl.Visible = true;
                 }
 
-               // MessageBox.Show("Cards show");
+                // MessageBox.Show("Cards show");
 
 
 
 
-               ////MATH////
+                ////MATH////
                 if (board_size == 256)
                 {
                     board_size = 106;
@@ -767,7 +732,7 @@ namespace pairs
                     board_size = 256;
                 }
                 ////MATH////
-   
+
 
 
 
@@ -805,6 +770,7 @@ namespace pairs
             x10ToolStripMenuItem.Checked = false;
             x16ToolStripMenuItem.Checked = false;
             board_size = 36;
+            max_score = 18;
             int_board = new int[6, 6];
             card_placement = new int[6, 6];
             card_placement_1d = new int[36];
@@ -818,9 +784,10 @@ namespace pairs
             x10ToolStripMenuItem.Checked = true;
             x16ToolStripMenuItem.Checked = false;
             board_size = 100;
+            max_score = 50;
             int_board = new int[10, 10];
             card_placement = new int[10, 10];
-            int[] card_placement_1d = new int[100];
+            card_placement_1d = new int[100];
             row_amount = 9;
             column_amount = 9;
         }
@@ -831,9 +798,10 @@ namespace pairs
             x10ToolStripMenuItem.Checked = false;
             x16ToolStripMenuItem.Checked = true;
             board_size = 256;
+            max_score = 128;
             int_board = new int[16, 16];
             card_placement = new int[16, 16];
-            int[] card_placement_1d = new int[256];
+            card_placement_1d = new int[256];
             row_amount = 15;
             column_amount = 15;
         }
@@ -866,7 +834,7 @@ namespace pairs
         private void reset_board()
         {
             //Application.Restart();
-          
+
             main_menu_lbl.Visible = true;
             player_1_name_txt.ReadOnly = false;
             player_1_name_txt.Text = "Name";
@@ -934,19 +902,107 @@ namespace pairs
 
         private void show_picked_cards_timer_Tick(object sender, EventArgs e)
         {
-            int_board[first_card_selected_row, first_card_selected_column] = 56;
-            int_board[second_card_selected_row, second_card_selected_column] = 56;
-            gimagearray.UpDateImages(int_board);
+            if (!check_for_match())
+            {
+                int_board[first_card_selected_row, first_card_selected_column] = 56;
+                int_board[second_card_selected_row, second_card_selected_column] = 56;
+                gimagearray.UpDateImages(int_board);
+                change_turn();
+            }
+            else
+            {
+                if (player_1_turn == true)
+                {
+                    player_1_score += 1;
+                    player_1_score_txt.Text = Convert.ToString(player_1_score);
+                }
+                else
+                {
+                    player_2_score += 1;
+                    player_2_score_txt.Text = Convert.ToString(player_2_score);
+                }
+
+                int_board[first_card_selected_row, first_card_selected_column] = 55;
+                int_board[second_card_selected_row, second_card_selected_column] = 55;
+                gimagearray.UpDateImages(int_board);
+
+                if (check_games_finished())
+                {
+                    if (player_1_score < player_2_score)
+                    {
+                        MessageBox.Show($"{player_2_name_txt.Text} wins!");
+                    }
+                    else if (player_2_score < player_1_score)
+                    {
+                        MessageBox.Show($"{player_1_name_txt.Text} wins!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("It's a draw!");
+                    }
+                    game_started = false;
+                    reset_board();
+                }
+            }
             first_card_selected_row = -1;
             second_card_selected_row = -1;
             first_card_selected_column = -1;
             second_card_selected_column = -1;
-            player_1_first_card_png.BackgroundImage = null;
-            player_2_first_card_png.BackgroundImage = null;
-            player_1_second_card_png.Visible = false;
-            player_2_second_card_png.Visible = false;
-            gimagearray.UpDateImages(int_board);
             show_picked_cards_timer.Stop();
+        }
+
+        private void Pairs_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (game_started)
+            {
+                DialogResult save_game = MessageBox.Show("Are you sure you want to exit?\nYour game will not be saved.", "Save Game?", MessageBoxButtons.YesNo);
+                if (save_game == DialogResult.Yes)
+                {
+
+                }
+                else if (save_game == DialogResult.No)
+                {
+                    //do saving subroutine :)
+
+                }
+            }
+        }
+
+        private void Pairs_SizeChanged(object sender, EventArgs e)
+        {
+            int multiplier = this.Width / 1336;
+            main_menu_lbl.Width *= multiplier;
+            main_menu_lbl.Left = (this.Width - main_menu_lbl.Width) / 2;
+            main_menu_png.Width *= multiplier;
+            main_menu_png.Left = (this.Width - main_menu_png.Width) / 2;
+        }
+
+        private void about_btn_Click(object sender, EventArgs e)
+        {
+            Form about_box = new About();
+            about_box.Show();
+        }
+
+        private void cards_selected_player_1_timer_Tick(object sender, EventArgs e)
+        {
+            player_1_first_card_png.BackgroundImage = null;
+            player_1_second_card_png.BackgroundImage = null;
+            cards_selected_player_1_timer.Stop();
+        }
+
+        private void cards_selected_player_2_timer_Tick(object sender, EventArgs e)
+        {
+            player_2_first_card_png.BackgroundImage = null;
+            player_2_second_card_png.BackgroundImage = null;
+            cards_selected_player_2_timer.Stop();
+        }
+
+        private void save_game()
+        {
+            using (StreamWriter writetext = new StreamWriter("write.txt"))
+            {
+                writetext.WriteLine("writing in text file");
+            }
         }
 
         //private void label_fade_timer_Tick(object sender, EventArgs e)
