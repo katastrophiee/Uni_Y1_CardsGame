@@ -46,12 +46,18 @@
             this.abouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.show_cards_timer = new System.Windows.Forms.Timer(this.components);
             this.player_2_pnl = new System.Windows.Forms.Panel();
+            this.player_2_turn_lbl = new System.Windows.Forms.Label();
+            this.player_2_score_txt = new System.Windows.Forms.TextBox();
             this.player_2_cards_box = new System.Windows.Forms.GroupBox();
             this.player_2_second_card_png = new System.Windows.Forms.PictureBox();
             this.player_2_first_card_png = new System.Windows.Forms.PictureBox();
+            this.player_2_pairs_lbl = new System.Windows.Forms.Label();
             this.player_2_name_txt = new System.Windows.Forms.TextBox();
             this.player_2_name_lbl = new System.Windows.Forms.Label();
             this.player_1_pnl = new System.Windows.Forms.Panel();
+            this.player_1_turn_lbl = new System.Windows.Forms.Label();
+            this.player_1_score_txt = new System.Windows.Forms.TextBox();
+            this.player_1_pairs_lbl = new System.Windows.Forms.Label();
             this.player_1_cards_box = new System.Windows.Forms.GroupBox();
             this.player_1_second_card_png = new System.Windows.Forms.PictureBox();
             this.player_1_first_card_png = new System.Windows.Forms.PictureBox();
@@ -59,15 +65,7 @@
             this.player_1_name_lbl = new System.Windows.Forms.Label();
             this.main_menu_lbl = new System.Windows.Forms.Label();
             this.main_menu_png = new System.Windows.Forms.PictureBox();
-            this.player_1_pairs_lbl = new System.Windows.Forms.Label();
-            this.player_1_score_txt = new System.Windows.Forms.TextBox();
-            this.player_2_score_txt = new System.Windows.Forms.TextBox();
-            this.player_2_pairs_lbl = new System.Windows.Forms.Label();
-            this.player_1_turn_lbl = new System.Windows.Forms.Label();
-            this.player_2_turn_lbl = new System.Windows.Forms.Label();
             this.show_picked_cards_timer = new System.Windows.Forms.Timer(this.components);
-            this.match_message_lbl = new System.Windows.Forms.Label();
-            this.label_fade_timer = new System.Windows.Forms.Timer(this.components);
             this.menu_bar.SuspendLayout();
             this.player_2_pnl.SuspendLayout();
             this.player_2_cards_box.SuspendLayout();
@@ -247,6 +245,32 @@
             this.player_2_pnl.Size = new System.Drawing.Size(233, 885);
             this.player_2_pnl.TabIndex = 6;
             // 
+            // player_2_turn_lbl
+            // 
+            this.player_2_turn_lbl.AutoSize = true;
+            this.player_2_turn_lbl.Font = new System.Drawing.Font("Segoe UI Black", 21.75F, System.Drawing.FontStyle.Bold);
+            this.player_2_turn_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.player_2_turn_lbl.Location = new System.Drawing.Point(31, 246);
+            this.player_2_turn_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player_2_turn_lbl.Name = "player_2_turn_lbl";
+            this.player_2_turn_lbl.Size = new System.Drawing.Size(171, 40);
+            this.player_2_turn_lbl.TabIndex = 15;
+            this.player_2_turn_lbl.Text = "Your Turn!";
+            this.player_2_turn_lbl.Visible = false;
+            // 
+            // player_2_score_txt
+            // 
+            this.player_2_score_txt.BackColor = System.Drawing.Color.Azure;
+            this.player_2_score_txt.Font = new System.Drawing.Font("Segoe UI", 14.25F);
+            this.player_2_score_txt.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.player_2_score_txt.Location = new System.Drawing.Point(27, 147);
+            this.player_2_score_txt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.player_2_score_txt.Name = "player_2_score_txt";
+            this.player_2_score_txt.Size = new System.Drawing.Size(179, 33);
+            this.player_2_score_txt.TabIndex = 15;
+            this.player_2_score_txt.Text = "0";
+            this.player_2_score_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // player_2_cards_box
             // 
             this.player_2_cards_box.Controls.Add(this.player_2_second_card_png);
@@ -277,6 +301,18 @@
             this.player_2_first_card_png.Size = new System.Drawing.Size(141, 171);
             this.player_2_first_card_png.TabIndex = 12;
             this.player_2_first_card_png.TabStop = false;
+            // 
+            // player_2_pairs_lbl
+            // 
+            this.player_2_pairs_lbl.AutoSize = true;
+            this.player_2_pairs_lbl.Font = new System.Drawing.Font("Segoe UI", 15.75F);
+            this.player_2_pairs_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.player_2_pairs_lbl.Location = new System.Drawing.Point(57, 114);
+            this.player_2_pairs_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player_2_pairs_lbl.Name = "player_2_pairs_lbl";
+            this.player_2_pairs_lbl.Size = new System.Drawing.Size(120, 30);
+            this.player_2_pairs_lbl.TabIndex = 14;
+            this.player_2_pairs_lbl.Text = "Pairs Found";
             // 
             // player_2_name_txt
             // 
@@ -319,6 +355,44 @@
             this.player_1_pnl.Name = "player_1_pnl";
             this.player_1_pnl.Size = new System.Drawing.Size(233, 885);
             this.player_1_pnl.TabIndex = 7;
+            // 
+            // player_1_turn_lbl
+            // 
+            this.player_1_turn_lbl.AutoSize = true;
+            this.player_1_turn_lbl.Font = new System.Drawing.Font("Segoe UI Black", 21.75F, System.Drawing.FontStyle.Bold);
+            this.player_1_turn_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.player_1_turn_lbl.Location = new System.Drawing.Point(31, 246);
+            this.player_1_turn_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player_1_turn_lbl.Name = "player_1_turn_lbl";
+            this.player_1_turn_lbl.Size = new System.Drawing.Size(171, 40);
+            this.player_1_turn_lbl.TabIndex = 14;
+            this.player_1_turn_lbl.Text = "Your Turn!";
+            this.player_1_turn_lbl.Visible = false;
+            // 
+            // player_1_score_txt
+            // 
+            this.player_1_score_txt.BackColor = System.Drawing.Color.Azure;
+            this.player_1_score_txt.Font = new System.Drawing.Font("Segoe UI", 14.25F);
+            this.player_1_score_txt.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.player_1_score_txt.Location = new System.Drawing.Point(26, 147);
+            this.player_1_score_txt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.player_1_score_txt.Name = "player_1_score_txt";
+            this.player_1_score_txt.Size = new System.Drawing.Size(179, 33);
+            this.player_1_score_txt.TabIndex = 13;
+            this.player_1_score_txt.Text = "0";
+            this.player_1_score_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // player_1_pairs_lbl
+            // 
+            this.player_1_pairs_lbl.AutoSize = true;
+            this.player_1_pairs_lbl.Font = new System.Drawing.Font("Segoe UI", 15.75F);
+            this.player_1_pairs_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.player_1_pairs_lbl.Location = new System.Drawing.Point(56, 114);
+            this.player_1_pairs_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.player_1_pairs_lbl.Name = "player_1_pairs_lbl";
+            this.player_1_pairs_lbl.Size = new System.Drawing.Size(120, 30);
+            this.player_1_pairs_lbl.TabIndex = 12;
+            this.player_1_pairs_lbl.Text = "Pairs Found";
             // 
             // player_1_cards_box
             // 
@@ -398,105 +472,10 @@
             this.main_menu_png.TabIndex = 9;
             this.main_menu_png.TabStop = false;
             // 
-            // player_1_pairs_lbl
-            // 
-            this.player_1_pairs_lbl.AutoSize = true;
-            this.player_1_pairs_lbl.Font = new System.Drawing.Font("Segoe UI", 15.75F);
-            this.player_1_pairs_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.player_1_pairs_lbl.Location = new System.Drawing.Point(56, 114);
-            this.player_1_pairs_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.player_1_pairs_lbl.Name = "player_1_pairs_lbl";
-            this.player_1_pairs_lbl.Size = new System.Drawing.Size(120, 30);
-            this.player_1_pairs_lbl.TabIndex = 12;
-            this.player_1_pairs_lbl.Text = "Pairs Found";
-            // 
-            // player_1_score_txt
-            // 
-            this.player_1_score_txt.BackColor = System.Drawing.Color.Azure;
-            this.player_1_score_txt.Font = new System.Drawing.Font("Segoe UI", 14.25F);
-            this.player_1_score_txt.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.player_1_score_txt.Location = new System.Drawing.Point(26, 147);
-            this.player_1_score_txt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.player_1_score_txt.Name = "player_1_score_txt";
-            this.player_1_score_txt.Size = new System.Drawing.Size(179, 33);
-            this.player_1_score_txt.TabIndex = 13;
-            this.player_1_score_txt.Text = "0";
-            this.player_1_score_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // player_2_score_txt
-            // 
-            this.player_2_score_txt.BackColor = System.Drawing.Color.Azure;
-            this.player_2_score_txt.Font = new System.Drawing.Font("Segoe UI", 14.25F);
-            this.player_2_score_txt.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.player_2_score_txt.Location = new System.Drawing.Point(27, 147);
-            this.player_2_score_txt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.player_2_score_txt.Name = "player_2_score_txt";
-            this.player_2_score_txt.Size = new System.Drawing.Size(179, 33);
-            this.player_2_score_txt.TabIndex = 15;
-            this.player_2_score_txt.Text = "0";
-            this.player_2_score_txt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // player_2_pairs_lbl
-            // 
-            this.player_2_pairs_lbl.AutoSize = true;
-            this.player_2_pairs_lbl.Font = new System.Drawing.Font("Segoe UI", 15.75F);
-            this.player_2_pairs_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.player_2_pairs_lbl.Location = new System.Drawing.Point(57, 114);
-            this.player_2_pairs_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.player_2_pairs_lbl.Name = "player_2_pairs_lbl";
-            this.player_2_pairs_lbl.Size = new System.Drawing.Size(120, 30);
-            this.player_2_pairs_lbl.TabIndex = 14;
-            this.player_2_pairs_lbl.Text = "Pairs Found";
-            // 
-            // player_1_turn_lbl
-            // 
-            this.player_1_turn_lbl.AutoSize = true;
-            this.player_1_turn_lbl.Font = new System.Drawing.Font("Segoe UI Black", 21.75F, System.Drawing.FontStyle.Bold);
-            this.player_1_turn_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.player_1_turn_lbl.Location = new System.Drawing.Point(31, 246);
-            this.player_1_turn_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.player_1_turn_lbl.Name = "player_1_turn_lbl";
-            this.player_1_turn_lbl.Size = new System.Drawing.Size(171, 40);
-            this.player_1_turn_lbl.TabIndex = 14;
-            this.player_1_turn_lbl.Text = "Your Turn!";
-            this.player_1_turn_lbl.Visible = false;
-            // 
-            // player_2_turn_lbl
-            // 
-            this.player_2_turn_lbl.AutoSize = true;
-            this.player_2_turn_lbl.Font = new System.Drawing.Font("Segoe UI Black", 21.75F, System.Drawing.FontStyle.Bold);
-            this.player_2_turn_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.player_2_turn_lbl.Location = new System.Drawing.Point(31, 246);
-            this.player_2_turn_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.player_2_turn_lbl.Name = "player_2_turn_lbl";
-            this.player_2_turn_lbl.Size = new System.Drawing.Size(171, 40);
-            this.player_2_turn_lbl.TabIndex = 15;
-            this.player_2_turn_lbl.Text = "Your Turn!";
-            this.player_2_turn_lbl.Visible = false;
-            // 
             // show_picked_cards_timer
             // 
-            this.show_picked_cards_timer.Interval = 10000;
+            this.show_picked_cards_timer.Interval = 1000;
             this.show_picked_cards_timer.Tick += new System.EventHandler(this.show_picked_cards_timer_Tick);
-            // 
-            // match_message_lbl
-            // 
-            this.match_message_lbl.AutoSize = true;
-            this.match_message_lbl.BackColor = System.Drawing.Color.Transparent;
-            this.match_message_lbl.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.match_message_lbl.Location = new System.Drawing.Point(574, 427);
-            this.match_message_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.match_message_lbl.Name = "match_message_lbl";
-            this.match_message_lbl.Size = new System.Drawing.Size(187, 65);
-            this.match_message_lbl.TabIndex = 10;
-            this.match_message_lbl.Text = "Match!";
-            this.match_message_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.match_message_lbl.Visible = false;
-            // 
-            // label_fade_timer
-            // 
-            this.label_fade_timer.Interval = 10;
-            this.label_fade_timer.Tick += new System.EventHandler(this.label_fade_timer_Tick);
             // 
             // Pairs
             // 
@@ -504,7 +483,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(1320, 918);
-            this.Controls.Add(this.match_message_lbl);
             this.Controls.Add(this.main_menu_png);
             this.Controls.Add(this.main_menu_lbl);
             this.Controls.Add(this.player_1_pnl);
@@ -576,8 +554,6 @@
         private System.Windows.Forms.Label player_1_turn_lbl;
         private System.Windows.Forms.Label player_2_turn_lbl;
         private System.Windows.Forms.Timer show_picked_cards_timer;
-        private System.Windows.Forms.Label match_message_lbl;
-        private System.Windows.Forms.Timer label_fade_timer;
     }
 }
 

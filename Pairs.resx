@@ -126,7 +126,4 @@
   <metadata name="show_picked_cards_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>255, 15</value>
   </metadata>
-  <metadata name="label_fade_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>444, 15</value>
-  </metadata>
 </root>
