@@ -132,4 +132,10 @@
   <metadata name="cards_selected_player_2_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>658, 15</value>
   </metadata>
+  <metadata name="open_game_dialog_box.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>872, 15</value>
+  </metadata>
+  <metadata name="save_game_dialog_box.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1052, 15</value>
+  </metadata>
 </root>

@@ -69,6 +69,8 @@
             this.show_picked_cards_timer = new System.Windows.Forms.Timer(this.components);
             this.cards_selected_player_1_timer = new System.Windows.Forms.Timer(this.components);
             this.cards_selected_player_2_timer = new System.Windows.Forms.Timer(this.components);
+            this.open_game_dialog_box = new System.Windows.Forms.OpenFileDialog();
+            this.save_game_dialog_box = new System.Windows.Forms.SaveFileDialog();
             this.menu_bar.SuspendLayout();
             this.player_2_pnl.SuspendLayout();
             this.player_2_cards_box.SuspendLayout();
@@ -159,6 +161,7 @@
             this.exit_menu_btn.Name = "exit_menu_btn";
             this.exit_menu_btn.Size = new System.Drawing.Size(205, 30);
             this.exit_menu_btn.Text = "Exit";
+            this.exit_menu_btn.Click += new System.EventHandler(this.exit_menu_btn_Click);
             // 
             // settings_menu_btn
             // 
@@ -502,6 +505,14 @@
             this.cards_selected_player_2_timer.Interval = 10000;
             this.cards_selected_player_2_timer.Tick += new System.EventHandler(this.cards_selected_player_2_timer_Tick);
             // 
+            // open_game_dialog_box
+            // 
+            this.open_game_dialog_box.FileName = "openFileDialog1";
+            // 
+            // save_game_dialog_box
+            // 
+            this.save_game_dialog_box.Title = "save.txt";
+            // 
             // Pairs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -585,6 +596,8 @@
         private System.Windows.Forms.Label copyright_lbl;
         private System.Windows.Forms.Timer cards_selected_player_1_timer;
         private System.Windows.Forms.Timer cards_selected_player_2_timer;
+        private System.Windows.Forms.OpenFileDialog open_game_dialog_box;
+        private System.Windows.Forms.SaveFileDialog save_game_dialog_box;
     }
 }
 

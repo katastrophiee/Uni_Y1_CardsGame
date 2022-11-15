@@ -18,6 +18,7 @@ namespace pairs
     public partial class Pairs : Form
     {
         int[,] int_board = new int[6, 6];
+        int[,] backs_of_the_cards = new int[6, 6];
         int[,] card_placement = new int[6, 6];
         int[] card_placement_1d = new int[36];
         int first_card_selected_row = -1;
@@ -39,6 +40,13 @@ namespace pairs
         {
             InitializeComponent();
             main_menu_png.BackgroundImage = Image.FromFile(str_Image_path + "pears.png");
+            for (int Row = 0; Row <= row_amount; Row++)
+            {
+                for (int Column = 0; Column <= column_amount; Column++)
+                {
+                    backs_of_the_cards[Row, Column] = 56;
+                }
+            }
             //create_player_1_panel();
             //create_player_2_panel();
             // create_image();
@@ -772,6 +780,7 @@ namespace pairs
             board_size = 36;
             max_score = 18;
             int_board = new int[6, 6];
+            backs_of_the_cards = new int[6, 6];
             card_placement = new int[6, 6];
             card_placement_1d = new int[36];
             row_amount = 5;
@@ -786,6 +795,7 @@ namespace pairs
             board_size = 100;
             max_score = 50;
             int_board = new int[10, 10];
+            backs_of_the_cards = new int[10, 10];
             card_placement = new int[10, 10];
             card_placement_1d = new int[100];
             row_amount = 9;
@@ -800,6 +810,7 @@ namespace pairs
             board_size = 256;
             max_score = 128;
             int_board = new int[16, 16];
+            backs_of_the_cards = new int[6, 6];
             card_placement = new int[16, 16];
             card_placement_1d = new int[256];
             row_amount = 15;
@@ -813,6 +824,7 @@ namespace pairs
                 for (int Column = 0; Column <= column_amount; Column++)
                 {
                     int_board[Row, Column] = 56;
+                    backs_of_the_cards[Row, Column] = 56;
                 }
             }
             gimagearray.UpDateImages(int_board);
@@ -836,12 +848,14 @@ namespace pairs
             //Application.Restart();
 
             main_menu_lbl.Visible = true;
+            main_menu_png.Visible = true;
             player_1_name_txt.ReadOnly = false;
             player_1_name_txt.Text = "Name";
+            player_1_name_txt.ForeColor = Color.Silver;
             player_2_name_txt.ReadOnly = false;
             player_2_name_txt.Text = "Name";
+            player_2_name_txt.ForeColor = Color.Silver;
             game_started = false;
-
             for (int ix = this.Controls.Count - 1; ix >= 0; ix--)
             {
                 if (this.Controls[ix] is PictureBox && this.Controls[ix] != main_menu_png)
@@ -849,14 +863,13 @@ namespace pairs
                     this.Controls[ix].Dispose();
                 }
             }
-            create_image();
         }
 
         private void save_game_menu_btn_Click(object sender, EventArgs e)
         {
             if (game_started)
             {
-
+                save_game();
             }
             else
             {
@@ -906,6 +919,7 @@ namespace pairs
             {
                 int_board[first_card_selected_row, first_card_selected_column] = 56;
                 int_board[second_card_selected_row, second_card_selected_column] = 56;
+                backs_of_the_cards //change to == int_board
                 gimagearray.UpDateImages(int_board);
                 change_turn();
             }
@@ -924,6 +938,7 @@ namespace pairs
 
                 int_board[first_card_selected_row, first_card_selected_column] = 55;
                 int_board[second_card_selected_row, second_card_selected_column] = 55;
+                backs_of_the_cards = int_board;
                 gimagearray.UpDateImages(int_board);
 
                 if (check_games_finished())
@@ -953,16 +968,21 @@ namespace pairs
 
         private void Pairs_FormClosing(object sender, FormClosingEventArgs e)
         {
+            prompt_user_to_save();
+        }
+
+        private void prompt_user_to_save()
+        {
             if (game_started)
             {
-                DialogResult save_game = MessageBox.Show("Are you sure you want to exit?\nYour game will not be saved.", "Save Game?", MessageBoxButtons.YesNo);
-                if (save_game == DialogResult.Yes)
+                DialogResult save_bool = MessageBox.Show("A game is in progress, would you like to save it before exiting?", "Save Game?", MessageBoxButtons.YesNo);
+                if (save_bool == DialogResult.Yes)
                 {
-
+                    save_game();
+                    // MessageBox.Show("ran :)");
                 }
-                else if (save_game == DialogResult.No)
+                else if (save_bool == DialogResult.No)
                 {
-                    //do saving subroutine :)
 
                 }
             }
@@ -999,10 +1019,69 @@ namespace pairs
 
         private void save_game()
         {
-            using (StreamWriter writetext = new StreamWriter("write.txt"))
+            save_game_dialog_box.Filter = "Text Files | *.txt";
+            save_game_dialog_box.DefaultExt = "txt";
+            save_game_dialog_box.ShowDialog();
+            Stream fileStream = save_game_dialog_box.OpenFile();
+
+            using (var sw = new StreamWriter(fileStream))
             {
-                writetext.WriteLine("writing in text file");
+                sw.WriteLine("backs of cards");
+                for (int i = 0; i < row_amount; i++)
+                {
+                    for (int j = 0; j < column_amount; j++)
+                    {
+                        sw.Write(backs_of_the_cards[i, j] + " ");
+                    }
+                    sw.Write("\n");
+                }
+                sw.WriteLine("card placement");
+                for (int i = 0; i < row_amount; i++)
+                {
+                    for (int j = 0; j < column_amount; j++)
+                    {
+                        sw.Write(card_placement[i, j] + " ");
+                    }
+                    sw.Write("\n");
+                }
+                sw.Flush();
+                sw.Close();
             }
+
+
+            ///////
+            //int[,] int_board = new int[6, 6];
+            //int[,] card_placement = new int[6, 6];
+            //int[] card_placement_1d = new int[36];
+            //int first_card_selected_row = -1;
+            //int second_card_selected_row = -1;
+            //int first_card_selected_column = -1;
+            //int second_card_selected_column = -1;
+            //int player_1_score = 0;
+            //int player_2_score = 0;
+            //int row_amount = 5;
+            //int column_amount = 5;
+            //GImageArray gimagearray;
+            //string str_Image_path = Directory.GetCurrentDirectory() + "\\Cards\\";
+            //bool player_1_turn = false;
+            //int board_size = 36;
+            //int max_score = 18;
+            //bool game_started = false;
+            //////
+        }
+
+        private void exit_menu_btn_Click(object sender, EventArgs e)
+        {
+            if (!show_cards_timer.Enabled)
+            {
+              
+            }
+            else
+            {
+              //  MessageBox.Show();
+            }
+            prompt_user_to_save();
+            reset_board();
         }
 
         //private void label_fade_timer_Tick(object sender, EventArgs e)
