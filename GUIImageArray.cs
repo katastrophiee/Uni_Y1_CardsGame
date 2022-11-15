@@ -77,7 +77,7 @@ namespace GUIImageArray
         /// <summary>
         /// Destructor, Removes the images from the Form and dispose of them before disposing of itself
         /// </summary>
-        ~GImageArray()
+        public void Delete()
         {
             for (int r = 0; r < Int_rows; r++)
             {

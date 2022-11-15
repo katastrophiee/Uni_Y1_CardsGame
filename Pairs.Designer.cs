@@ -67,8 +67,6 @@
             this.main_menu_lbl = new System.Windows.Forms.Label();
             this.main_menu_png = new System.Windows.Forms.PictureBox();
             this.show_picked_cards_timer = new System.Windows.Forms.Timer(this.components);
-            this.cards_selected_player_1_timer = new System.Windows.Forms.Timer(this.components);
-            this.cards_selected_player_2_timer = new System.Windows.Forms.Timer(this.components);
             this.open_game_dialog_box = new System.Windows.Forms.OpenFileDialog();
             this.save_game_dialog_box = new System.Windows.Forms.SaveFileDialog();
             this.menu_bar.SuspendLayout();
@@ -146,6 +144,7 @@
             this.retrieve_game_menu_btn.Name = "retrieve_game_menu_btn";
             this.retrieve_game_menu_btn.Size = new System.Drawing.Size(205, 30);
             this.retrieve_game_menu_btn.Text = "Retrieve Game";
+            this.retrieve_game_menu_btn.Click += new System.EventHandler(this.retrieve_game_menu_btn_Click);
             // 
             // serpToolStripMenuItem
             // 
@@ -311,6 +310,7 @@
             this.player_2_second_card_png.Size = new System.Drawing.Size(123, 165);
             this.player_2_second_card_png.TabIndex = 13;
             this.player_2_second_card_png.TabStop = false;
+            this.player_2_second_card_png.Visible = false;
             // 
             // player_2_first_card_png
             // 
@@ -433,6 +433,7 @@
             this.player_1_second_card_png.Size = new System.Drawing.Size(125, 165);
             this.player_1_second_card_png.TabIndex = 13;
             this.player_1_second_card_png.TabStop = false;
+            this.player_1_second_card_png.Visible = false;
             // 
             // player_1_first_card_png
             // 
@@ -492,18 +493,8 @@
             // 
             // show_picked_cards_timer
             // 
-            this.show_picked_cards_timer.Interval = 1000;
+            this.show_picked_cards_timer.Interval = 2000;
             this.show_picked_cards_timer.Tick += new System.EventHandler(this.show_picked_cards_timer_Tick);
-            // 
-            // cards_selected_player_1_timer
-            // 
-            this.cards_selected_player_1_timer.Interval = 10000;
-            this.cards_selected_player_1_timer.Tick += new System.EventHandler(this.cards_selected_player_1_timer_Tick);
-            // 
-            // cards_selected_player_2_timer
-            // 
-            this.cards_selected_player_2_timer.Interval = 10000;
-            this.cards_selected_player_2_timer.Tick += new System.EventHandler(this.cards_selected_player_2_timer_Tick);
             // 
             // open_game_dialog_box
             // 
@@ -594,8 +585,6 @@
         private System.Windows.Forms.Label player_2_turn_lbl;
         private System.Windows.Forms.Timer show_picked_cards_timer;
         private System.Windows.Forms.Label copyright_lbl;
-        private System.Windows.Forms.Timer cards_selected_player_1_timer;
-        private System.Windows.Forms.Timer cards_selected_player_2_timer;
         private System.Windows.Forms.OpenFileDialog open_game_dialog_box;
         private System.Windows.Forms.SaveFileDialog save_game_dialog_box;
     }

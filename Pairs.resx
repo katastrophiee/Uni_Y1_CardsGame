@@ -126,16 +126,10 @@
   <metadata name="show_picked_cards_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>255, 15</value>
   </metadata>
-  <metadata name="cards_selected_player_1_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>444, 15</value>
-  </metadata>
-  <metadata name="cards_selected_player_2_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>658, 15</value>
-  </metadata>
   <metadata name="open_game_dialog_box.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>872, 15</value>
+    <value>447, 19</value>
   </metadata>
   <metadata name="save_game_dialog_box.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1052, 15</value>
+    <value>627, 19</value>
   </metadata>
 </root>

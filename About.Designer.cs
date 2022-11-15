@@ -94,6 +94,9 @@
             this.Controls.Add(this.player_1_name_lbl);
             this.Controls.Add(this.pears_png);
             this.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "About";
             this.Text = "About";
             ((System.ComponentModel.ISupportInitialize)(this.pears_png)).EndInit();

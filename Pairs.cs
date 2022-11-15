@@ -415,12 +415,12 @@ namespace pairs
                             if (player_1_turn == true)
                             {
                                 player_1_first_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
-                                player_1_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
+                                //player_1_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
                             }
                             else
                             {
                                 player_2_first_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
-                                player_2_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
+                                //player_2_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[first_card_selected_row, first_card_selected_column]) + ".png");
                             }
                         }
                         else
@@ -437,14 +437,12 @@ namespace pairs
                                 if (player_1_turn == true)
                                 {
                                     player_1_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[second_card_selected_row, second_card_selected_column]) + ".png");
-                                    cards_selected_player_1_timer.Start();
-
-
+                                    player_1_second_card_png.Visible = true;
                                 }
                                 else
                                 {
                                     player_2_second_card_png.BackgroundImage = Image.FromFile(str_Image_path + Convert.ToString(card_placement[second_card_selected_row, second_card_selected_column]) + ".png");
-                                    cards_selected_player_2_timer.Start();
+                                    player_2_second_card_png.Visible = true; 
                                 }
                                 show_picked_cards_timer.Start();
 
@@ -689,88 +687,92 @@ namespace pairs
             }
             else
             {
-                player_2_name_txt.ReadOnly = true;
-                player_1_name_txt.ReadOnly = true;
-                game_started = true;
-                Random rnd = new Random(); //random
-                player_1_turn = rnd.NextDouble() >= 0.5; //randomly decides whos turn it is to start
-                main_menu_lbl.Visible = false;
-                main_menu_png.Visible = false;
-
-                //makes read only so the names can't be editted once started
-
-                //Label title = (Label)Controls.Find("center_label_lbl", true)[0]; //looks for image and background and hides them
-
-                //PictureBox background_image = (PictureBox)Controls.Find("center_image_png", true)[0];
-                //title.Visible = false;
-
-                if (player_1_turn == true)
-                {
-                    MessageBox.Show("Player 1 starts!");
-                    player_1_turn_lbl.Visible = true;
-                }
-                else //appropriate message box based on whos turn it is
-                {
-                    MessageBox.Show("Player 2 starts!");
-                    player_2_turn_lbl.Visible = true;
-                }
-
-                // MessageBox.Show("Cards show");
-
-
-
-
-                ////MATH////
-                if (board_size == 256)
-                {
-                    board_size = 106;
-                }
-                card_placement_1d = assign_card(); // gets the placement for the cards on the board
-                if (board_size == 106)
-                {
-                    card_placement_1d = card_placement_1d.Concat(card_placement_1d).ToArray(); //duplicates all of the items in the list to get 2 of each card
-
-                    board_size = 44;
-
-                    int[] left_over = assign_card();
-
-                    card_placement_1d = card_placement_1d.Concat(left_over).ToArray(); //duplicates all of the items in the list to get 2 of each card
-                    card_placement_1d = card_placement_1d.OrderBy(x => rnd.Next()).ToArray();
-
-                    board_size = 256;
-                }
-                ////MATH////
-
-
-
-
-
-                if (x6ToolStripMenuItem.Checked == true)
-                {
-                    show_cards_timer.Interval = 10000;
-                    gimagearray = new GImageArray(this, int_board, 50, 50, 50, 300, 10, str_Image_path, player_1_pnl); //lays out the cards and picture boxes
-                    card_placement = Make2DArray(card_placement_1d, 6, 6); //makes the card placement a 2d array
-                }
-                else if (x10ToolStripMenuItem.Checked == true)
-                {
-                    show_cards_timer.Interval = 15000;
-                    gimagearray = new GImageArray(this, int_board, 50, 20, 10, 300, 10, str_Image_path, player_1_pnl); //lays out the cards and picture boxes
-                    card_placement = Make2DArray(card_placement_1d, 10, 10); //makes the card placement a 2d array
-                }
-                else
-                {
-                    show_cards_timer.Interval = 20000;
-                    gimagearray = new GImageArray(this, int_board, 50, 50, 150, 300, 5, str_Image_path, player_1_pnl); //lays out the cards and picture boxes
-                    card_placement = Make2DArray(card_placement_1d, 16, 16); //makes the card placement a 2d array
-                }
-
-                gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked); //adds events to the pictures for when clicked
-                set_board_to_cards(board_size, card_placement_1d); // sets all the cards on the board to be face up
-                gimagearray.UpDateImages(int_board);
-                show_cards_timer.Start();
+                start_game();
             }
         }
 
+        private void start_game()
+        {
+            player_2_name_txt.ReadOnly = true;
+            player_1_name_txt.ReadOnly = true;
+            game_started = true;
+            Random rnd = new Random(); //random
+            player_1_turn = rnd.NextDouble() >= 0.5; //randomly decides whos turn it is to start
+            main_menu_lbl.Visible = false;
+            main_menu_png.Visible = false;
+
+            //makes read only so the names can't be editted once started
+
+            //Label title = (Label)Controls.Find("center_label_lbl", true)[0]; //looks for image and background and hides them
+
+            //PictureBox background_image = (PictureBox)Controls.Find("center_image_png", true)[0];
+            //title.Visible = false;
+
+            if (player_1_turn == true)
+            {
+                MessageBox.Show("Player 1 starts!");
+                player_1_turn_lbl.Visible = true;
+            }
+            else //appropriate message box based on whos turn it is
+            {
+                MessageBox.Show("Player 2 starts!");
+                player_2_turn_lbl.Visible = true;
+            }
+
+            // MessageBox.Show("Cards show");
+
+
+
+
+            ////MATH////
+            if (board_size == 256)
+            {
+                board_size = 106;
+            }
+            card_placement_1d = assign_card(); // gets the placement for the cards on the board
+            if (board_size == 106)
+            {
+                card_placement_1d = card_placement_1d.Concat(card_placement_1d).ToArray(); //duplicates all of the items in the list to get 2 of each card
+
+                board_size = 44;
+
+                int[] left_over = assign_card();
+
+                card_placement_1d = card_placement_1d.Concat(left_over).ToArray(); //duplicates all of the items in the list to get 2 of each card
+                card_placement_1d = card_placement_1d.OrderBy(x => rnd.Next()).ToArray();
+
+                board_size = 256;
+            }
+            ////MATH////
+
+
+
+
+
+            if (x6ToolStripMenuItem.Checked == true)
+            {
+                show_cards_timer.Interval = 10000;
+                gimagearray = new GImageArray(this, int_board, 50, 50, 50, 300, 10, str_Image_path, player_1_pnl); //lays out the cards and picture boxes
+                card_placement = Make2DArray(card_placement_1d, 6, 6); //makes the card placement a 2d array
+            }
+            else if (x10ToolStripMenuItem.Checked == true)
+            {
+                show_cards_timer.Interval = 15000;
+                gimagearray = new GImageArray(this, int_board, 50, 20, 10, 300, 10, str_Image_path, player_1_pnl); //lays out the cards and picture boxes
+                card_placement = Make2DArray(card_placement_1d, 10, 10); //makes the card placement a 2d array
+            }
+            else
+            {
+                show_cards_timer.Interval = 20000;
+                gimagearray = new GImageArray(this, int_board, 50, 50, 150, 300, 5, str_Image_path, player_1_pnl); //lays out the cards and picture boxes
+                card_placement = Make2DArray(card_placement_1d, 16, 16); //makes the card placement a 2d array
+            }
+
+            gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked); //adds events to the pictures for when clicked
+            set_board_to_cards(board_size, card_placement_1d); // sets all the cards on the board to be face up
+            gimagearray.UpDateImages(int_board);
+            show_cards_timer.Start();
+        }
 
         private void x6ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -856,6 +858,10 @@ namespace pairs
             player_2_name_txt.Text = "Name";
             player_2_name_txt.ForeColor = Color.Silver;
             game_started = false;
+            player_1_score = 0;
+            player_1_score_txt.Text = "0";
+            player_2_score = 0;
+            player_1_score_txt.Text = "0";
             for (int ix = this.Controls.Count - 1; ix >= 0; ix--)
             {
                 if (this.Controls[ix] is PictureBox && this.Controls[ix] != main_menu_png)
@@ -919,7 +925,6 @@ namespace pairs
             {
                 int_board[first_card_selected_row, first_card_selected_column] = 56;
                 int_board[second_card_selected_row, second_card_selected_column] = 56;
-                backs_of_the_cards //change to == int_board
                 gimagearray.UpDateImages(int_board);
                 change_turn();
             }
@@ -937,8 +942,9 @@ namespace pairs
                 }
 
                 int_board[first_card_selected_row, first_card_selected_column] = 55;
+                backs_of_the_cards[first_card_selected_row, first_card_selected_column] = 55;
                 int_board[second_card_selected_row, second_card_selected_column] = 55;
-                backs_of_the_cards = int_board;
+                backs_of_the_cards[second_card_selected_row, second_card_selected_column] = 55;
                 gimagearray.UpDateImages(int_board);
 
                 if (check_games_finished())
@@ -963,6 +969,12 @@ namespace pairs
             second_card_selected_row = -1;
             first_card_selected_column = -1;
             second_card_selected_column = -1;
+            player_1_first_card_png.BackgroundImage = null;
+            player_1_second_card_png.BackgroundImage = null;
+            player_1_second_card_png.Visible = false;
+            player_2_first_card_png.BackgroundImage = null;
+            player_2_second_card_png.BackgroundImage = null;
+            player_2_second_card_png.Visible = false;
             show_picked_cards_timer.Stop();
         }
 
@@ -1003,20 +1015,6 @@ namespace pairs
             about_box.Show();
         }
 
-        private void cards_selected_player_1_timer_Tick(object sender, EventArgs e)
-        {
-            player_1_first_card_png.BackgroundImage = null;
-            player_1_second_card_png.BackgroundImage = null;
-            cards_selected_player_1_timer.Stop();
-        }
-
-        private void cards_selected_player_2_timer_Tick(object sender, EventArgs e)
-        {
-            player_2_first_card_png.BackgroundImage = null;
-            player_2_second_card_png.BackgroundImage = null;
-            cards_selected_player_2_timer.Stop();
-        }
-
         private void save_game()
         {
             save_game_dialog_box.Filter = "Text Files | *.txt";
@@ -1026,48 +1024,221 @@ namespace pairs
 
             using (var sw = new StreamWriter(fileStream))
             {
-                sw.WriteLine("backs of cards");
-                for (int i = 0; i < row_amount; i++)
+                sw.WriteLine(Convert.ToString(board_size));
+                for (int Row = 0; Row != row_amount; Row++)
                 {
-                    for (int j = 0; j < column_amount; j++)
+                    for (int Column = 0; Column != column_amount; Column++)
                     {
-                        sw.Write(backs_of_the_cards[i, j] + " ");
+                        sw.WriteLine(backs_of_the_cards[Row, Column]);
                     }
-                    sw.Write("\n");
-                }
-                sw.WriteLine("card placement");
-                for (int i = 0; i < row_amount; i++)
+                } 
+                for (int Row = 0; Row != row_amount; Row++)
                 {
-                    for (int j = 0; j < column_amount; j++)
+                    for (int Column = 0; Column != column_amount; Column++)
                     {
-                        sw.Write(card_placement[i, j] + " ");
+                        sw.WriteLine(card_placement[Row, Column]);
                     }
-                    sw.Write("\n");
                 }
+                //for (int i = 0; i < row_amount; i++)
+                //{
+                //    for (int j = 0; j < column_amount; j++)
+                //    {
+                //        sw.WriteLine(card_placement[i, j]);
+                //    }
+                //}
+                sw.WriteLine(first_card_selected_row);               
+                sw.WriteLine(first_card_selected_column);               
+                sw.WriteLine(second_card_selected_row);               
+                sw.WriteLine(second_card_selected_column);                          
+                sw.WriteLine(player_1_score);
+                sw.WriteLine(player_2_score);
+                sw.WriteLine(player_1_name_txt.Text);
+                sw.WriteLine(player_2_name_txt.Text);
+                sw.WriteLine(player_1_turn);
                 sw.Flush();
                 sw.Close();
             }
+        }
+
+        private void load_game()
+        {
+            var filePath = string.Empty;
+            bool valid_file = true;
+            //string fileContent = "";
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "Text Files | *.txt";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        board_size = Convert.ToInt32(reader.ReadLine());
+                        if (game_started)
+                        {
+                            gimagearray.Delete();
+                        }
+                        if (board_size == 36)
+                        {
+                            gimagearray = new GImageArray(this, int_board, 50, 50, 50, 300, 10, str_Image_path, player_1_pnl);
+                            int_board = new int[6, 6];
+                            backs_of_the_cards = new int[6, 6];
+                            card_placement = new int[6, 6];
+                            card_placement_1d = new int[36];
+                            row_amount = 5;
+                            column_amount = 5;
+                            max_score = 18;
+                        }
+                        else if (board_size == 100)
+                        {
+                            gimagearray = new GImageArray(this, int_board, 50, 20, 10, 300, 10, str_Image_path, player_1_pnl);
+                            int_board = new int[10, 10];
+                            backs_of_the_cards = new int[10, 10];
+                            card_placement = new int[10, 10];
+                            card_placement_1d = new int[100];
+                            row_amount = 9;
+                            column_amount = 9;
+                            max_score = 50;
+                        }
+                        else if (board_size == 256)
+                        {
+                            gimagearray = new GImageArray(this, int_board, 50, 50, 150, 300, 5, str_Image_path, player_1_pnl);
+                            int_board = new int[16, 16];
+                            backs_of_the_cards = new int[6, 6];
+                            card_placement = new int[16, 16];
+                            card_placement_1d = new int[256];
+                            row_amount = 15;
+                            column_amount = 15;
+                            max_score = 128;
+                        }
+                        else
+                        {
+                            valid_file = false;
+                        }
+                        if (valid_file)
+                        {
+                            MessageBox.Show(Convert.ToString(row_amount));
+                            MessageBox.Show(Convert.ToString(column_amount));
+                            for (int Row = 0; Row <= row_amount; Row++)
+                            {
+                                for (int Column = 0; Column <= column_amount; Column++)
+                                {
+                                    int test = Convert.ToInt32(reader.ReadLine());
+                                    int_board[Row, Column] = test;
+                                    MessageBox.Show(Convert.ToString(test));
+                                }
+                            }
+                            for (int Row = 0; Row <= row_amount; Row++)
+                            {
+                                for (int Column = 0; Column <= column_amount; Column++)
+                                {
+                                    int test = Convert.ToInt32(reader.ReadLine());
+                                    card_placement[Row, Column] = test;
+                                    MessageBox.Show(Convert.ToString(test));
+                                }
+                            }
+                            //for (int i = 0; i < row_amount; i++)
+                            //{
+                            //    for (int j = 0; j < column_amount; j++)
+                            //    {
+                            //        int test = Convert.ToInt32(reader.ReadLine());
+                            //        card_placement[i, j] = test;
+                            //        //MessageBox.Show(Convert.ToString(test));
+                            //    }
+                            //}
+                            foreach (int value in card_placement)
+                            {
+                                //MessageBox.Show(Convert.ToString(value));
+                            }
+                            first_card_selected_row = Convert.ToInt32(reader.ReadLine());
+                            first_card_selected_column = Convert.ToInt32(reader.ReadLine());
+                            second_card_selected_row = Convert.ToInt32(reader.ReadLine());
+                            second_card_selected_column = Convert.ToInt32(reader.ReadLine());
+                            player_1_score = Convert.ToInt32(reader.ReadLine());
+                            player_2_score = Convert.ToInt32(reader.ReadLine());
+                            player_1_name_txt.Text = reader.ReadLine();
+                            player_2_name_txt.Text = reader.ReadLine();
+                            player_1_turn = Convert.ToBoolean(reader.ReadLine());
+
+                            set_board_to_save();
+                        }
+                    }
+                }
+            }
+          //  string selected_cards = (getBetween(fileContent, "selected cards", "scores"));
+            //string[] selected_cards_array = selected_cards.Split('\n');
 
 
-            ///////
-            //int[,] int_board = new int[6, 6];
-            //int[,] card_placement = new int[6, 6];
-            //int[] card_placement_1d = new int[36];
-            //int first_card_selected_row = -1;
-            //int second_card_selected_row = -1;
-            //int first_card_selected_column = -1;
-            //int second_card_selected_column = -1;
-            //int player_1_score = 0;
-            //int player_2_score = 0;
-            //int row_amount = 5;
-            //int column_amount = 5;
-            //GImageArray gimagearray;
-            //string str_Image_path = Directory.GetCurrentDirectory() + "\\Cards\\";
-            //bool player_1_turn = false;
-            //int board_size = 36;
-            //int max_score = 18;
-            //bool game_started = false;
-            //////
+            //foreach (var word in selected_cards_array)
+            //{
+            //    MessageBox.Show($"{word}");
+            //}
+
+            // remove last NewLine
+            //Environment.NewLine;
+           // board_size = Convert.ToInt32(getBetween(fileContent, "board size", "player 1 turn"));
+        }
+
+        private void set_board_to_save()
+        {
+            MessageBox.Show(Convert.ToString(board_size));
+            main_menu_lbl.Visible = false;
+            main_menu_png.Visible = false;
+            player_2_name_txt.ReadOnly = true;
+            player_1_name_txt.ReadOnly = true;
+            if (player_1_turn == true)
+            {
+                MessageBox.Show("Player 1's turn!");
+                player_1_turn_lbl.Visible = true;
+            }
+            else //appropriate message box based on whos turn it is
+            {
+                MessageBox.Show("Player 2's turn!");
+                player_2_turn_lbl.Visible = true;
+            }
+
+            if (board_size == 36)
+            {
+                x6ToolStripMenuItem.Checked = true;
+                x10ToolStripMenuItem.Checked = false;
+                x16ToolStripMenuItem.Checked = false;
+                show_cards_timer.Interval = 10000;
+                gimagearray = new GImageArray(this, int_board, 50, 50, 50, 300, 10, str_Image_path, player_1_pnl); //lays out the cards and picture boxes
+                card_placement = Make2DArray(card_placement_1d, 6, 6); //makes the card placement a 2d array
+            }
+            else if (board_size == 100)
+            {
+                x6ToolStripMenuItem.Checked = false;
+                x10ToolStripMenuItem.Checked = true;
+                x16ToolStripMenuItem.Checked = false;
+                show_cards_timer.Interval = 15000;
+                gimagearray = new GImageArray(this, int_board, 50, 20, 10, 300, 10, str_Image_path, player_1_pnl); //lays out the cards and picture boxes
+                card_placement = Make2DArray(card_placement_1d, 10, 10); //makes the card placement a 2d array
+            }
+            else
+            {
+                x6ToolStripMenuItem.Checked = false;
+                x10ToolStripMenuItem.Checked = false;
+                x16ToolStripMenuItem.Checked = true;
+                show_cards_timer.Interval = 20000;
+                gimagearray = new GImageArray(this, int_board, 50, 50, 150, 300, 5, str_Image_path, player_1_pnl); //lays out the cards and picture boxes
+                card_placement = Make2DArray(card_placement_1d, 16, 16); //makes the card placement a 2d array
+            }
+
+            gimagearray.Which_Element_Clicked += new GImageArray.ImageClickedEventHandler(Which_Element_Clicked); //adds events to the pictures for when clicked
+            set_board_to_cards(board_size, card_placement_1d); // sets all the cards on the board to be face up
+            gimagearray.UpDateImages(int_board);
+            show_cards_timer.Start();
         }
 
         private void exit_menu_btn_Click(object sender, EventArgs e)
@@ -1082,6 +1253,20 @@ namespace pairs
             }
             prompt_user_to_save();
             reset_board();
+        }
+
+        private void retrieve_game_menu_btn_Click(object sender, EventArgs e)
+        {
+            if (game_started)
+            {
+                //message ok no box :)
+
+            }
+            else
+            {
+                load_game();
+                game_started = true;
+            }
         }
 
         //private void label_fade_timer_Tick(object sender, EventArgs e)
