@@ -67,8 +67,6 @@
             this.main_menu_lbl = new System.Windows.Forms.Label();
             this.main_menu_png = new System.Windows.Forms.PictureBox();
             this.show_picked_cards_timer = new System.Windows.Forms.Timer(this.components);
-            this.open_game_dialog_box = new System.Windows.Forms.OpenFileDialog();
-            this.save_game_dialog_box = new System.Windows.Forms.SaveFileDialog();
             this.menu_bar.SuspendLayout();
             this.player_2_pnl.SuspendLayout();
             this.player_2_cards_box.SuspendLayout();
@@ -181,24 +179,26 @@
             this.x16ToolStripMenuItem});
             this.sizeToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
-            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(118, 30);
+            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
             this.sizeToolStripMenuItem.Text = "Size";
             // 
             // x6ToolStripMenuItem
             // 
+            this.x6ToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.x6ToolStripMenuItem.Checked = true;
             this.x6ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.x6ToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.x6ToolStripMenuItem.Name = "x6ToolStripMenuItem";
-            this.x6ToolStripMenuItem.Size = new System.Drawing.Size(143, 30);
+            this.x6ToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
             this.x6ToolStripMenuItem.Text = "6 x 6";
             this.x6ToolStripMenuItem.Click += new System.EventHandler(this.x6ToolStripMenuItem_Click);
             // 
             // x10ToolStripMenuItem
             // 
+            this.x10ToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.x10ToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.x10ToolStripMenuItem.Name = "x10ToolStripMenuItem";
-            this.x10ToolStripMenuItem.Size = new System.Drawing.Size(143, 30);
+            this.x10ToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
             this.x10ToolStripMenuItem.Text = "10 x 10";
             this.x10ToolStripMenuItem.Click += new System.EventHandler(this.x10ToolStripMenuItem_Click);
             // 
@@ -207,7 +207,7 @@
             this.x16ToolStripMenuItem.BackColor = System.Drawing.Color.Azure;
             this.x16ToolStripMenuItem.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.x16ToolStripMenuItem.Name = "x16ToolStripMenuItem";
-            this.x16ToolStripMenuItem.Size = new System.Drawing.Size(143, 30);
+            this.x16ToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
             this.x16ToolStripMenuItem.Text = "16 x 16";
             this.x16ToolStripMenuItem.Click += new System.EventHandler(this.x16ToolStripMenuItem_Click);
             // 
@@ -226,7 +226,7 @@
             this.about_btn.BackColor = System.Drawing.Color.Azure;
             this.about_btn.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.about_btn.Name = "about_btn";
-            this.about_btn.Size = new System.Drawing.Size(135, 30);
+            this.about_btn.Size = new System.Drawing.Size(180, 30);
             this.about_btn.Text = "About";
             this.about_btn.Click += new System.EventHandler(this.about_btn_Click);
             // 
@@ -272,6 +272,7 @@
             this.player_2_score_txt.Location = new System.Drawing.Point(27, 147);
             this.player_2_score_txt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.player_2_score_txt.Name = "player_2_score_txt";
+            this.player_2_score_txt.ReadOnly = true;
             this.player_2_score_txt.Size = new System.Drawing.Size(179, 33);
             this.player_2_score_txt.TabIndex = 15;
             this.player_2_score_txt.Text = "0";
@@ -342,7 +343,8 @@
             this.player_2_name_txt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.player_2_name_txt.Name = "player_2_name_txt";
             this.player_2_name_txt.Size = new System.Drawing.Size(179, 33);
-            this.player_2_name_txt.TabIndex = 9;
+            this.player_2_name_txt.TabIndex = 2;
+            this.player_2_name_txt.TabStop = false;
             this.player_2_name_txt.Text = "Name";
             this.player_2_name_txt.Enter += new System.EventHandler(this.player_2_name_txt_Enter);
             this.player_2_name_txt.Leave += new System.EventHandler(this.player_2_name_txt_Leave);
@@ -396,6 +398,7 @@
             this.player_1_score_txt.Location = new System.Drawing.Point(26, 147);
             this.player_1_score_txt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.player_1_score_txt.Name = "player_1_score_txt";
+            this.player_1_score_txt.ReadOnly = true;
             this.player_1_score_txt.Size = new System.Drawing.Size(179, 33);
             this.player_1_score_txt.TabIndex = 13;
             this.player_1_score_txt.Text = "0";
@@ -453,7 +456,8 @@
             this.player_1_name_txt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.player_1_name_txt.Name = "player_1_name_txt";
             this.player_1_name_txt.Size = new System.Drawing.Size(179, 33);
-            this.player_1_name_txt.TabIndex = 11;
+            this.player_1_name_txt.TabIndex = 1;
+            this.player_1_name_txt.TabStop = false;
             this.player_1_name_txt.Text = "Name";
             this.player_1_name_txt.Enter += new System.EventHandler(this.player_1_name_txt_Enter);
             this.player_1_name_txt.Leave += new System.EventHandler(this.player_1_name_txt_Leave);
@@ -493,16 +497,8 @@
             // 
             // show_picked_cards_timer
             // 
-            this.show_picked_cards_timer.Interval = 2000;
+            this.show_picked_cards_timer.Interval = 1000;
             this.show_picked_cards_timer.Tick += new System.EventHandler(this.show_picked_cards_timer_Tick);
-            // 
-            // open_game_dialog_box
-            // 
-            this.open_game_dialog_box.FileName = "openFileDialog1";
-            // 
-            // save_game_dialog_box
-            // 
-            this.save_game_dialog_box.Title = "save.txt";
             // 
             // Pairs
             // 
@@ -525,7 +521,7 @@
             this.Text = "Pairs";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Pairs_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.Pairs_Load);
             this.SizeChanged += new System.EventHandler(this.Pairs_SizeChanged);
             this.menu_bar.ResumeLayout(false);
             this.menu_bar.PerformLayout();
@@ -585,8 +581,6 @@
         private System.Windows.Forms.Label player_2_turn_lbl;
         private System.Windows.Forms.Timer show_picked_cards_timer;
         private System.Windows.Forms.Label copyright_lbl;
-        private System.Windows.Forms.OpenFileDialog open_game_dialog_box;
-        private System.Windows.Forms.SaveFileDialog save_game_dialog_box;
     }
 }
 

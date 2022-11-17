@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3A8A082B-7408-4028-9432-028952659143}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>pain</RootNamespace>
-    <AssemblyName>pain</AssemblyName>
+    <RootNamespace>Pairs</RootNamespace>
+    <AssemblyName>Pairsv1.0</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,9 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicUI.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="About.cs">
       <SubType>Form</SubType>
     </Compile>

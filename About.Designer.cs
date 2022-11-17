@@ -1,4 +1,4 @@
-﻿namespace pain
+﻿namespace Pairs
 {
     partial class About
     {
@@ -32,7 +32,7 @@
             this.pears_png = new System.Windows.Forms.PictureBox();
             this.player_1_name_lbl = new System.Windows.Forms.Label();
             this.description_txt = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ok_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pears_png)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,17 +71,17 @@
             this.description_txt.TabIndex = 10;
             this.description_txt.Text = resources.GetString("description_txt.Text");
             // 
-            // button1
+            // ok_btn
             // 
-            this.button1.BackColor = System.Drawing.Color.LightBlue;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(233, 276);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(161, 34);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ok_btn.BackColor = System.Drawing.Color.LightBlue;
+            this.ok_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ok_btn.Location = new System.Drawing.Point(233, 276);
+            this.ok_btn.Name = "ok_btn";
+            this.ok_btn.Size = new System.Drawing.Size(161, 34);
+            this.ok_btn.TabIndex = 11;
+            this.ok_btn.Text = "OK";
+            this.ok_btn.UseVisualStyleBackColor = false;
+            this.ok_btn.Click += new System.EventHandler(this.ok_btn_Click);
             // 
             // About
             // 
@@ -89,7 +89,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
             this.ClientSize = new System.Drawing.Size(627, 321);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.ok_btn);
             this.Controls.Add(this.description_txt);
             this.Controls.Add(this.player_1_name_lbl);
             this.Controls.Add(this.pears_png);
@@ -98,6 +98,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "About";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
             ((System.ComponentModel.ISupportInitialize)(this.pears_png)).EndInit();
             this.ResumeLayout(false);
@@ -110,6 +111,6 @@
         private System.Windows.Forms.PictureBox pears_png;
         private System.Windows.Forms.Label player_1_name_lbl;
         private System.Windows.Forms.RichTextBox description_txt;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ok_btn;
     }
 }

@@ -9,18 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace pain
+namespace Pairs
 {
     public partial class About : Form
     {
-        string str_Image_path = Directory.GetCurrentDirectory() + "\\Cards\\";
-        public About()
+        public About(string str_Image_path, Form owner)
         {
             InitializeComponent();
+            Owner = owner;
+            this.CenterToParent();
             pears_png.BackgroundImage = Image.FromFile(str_Image_path + "pears.png");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ok_btn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
