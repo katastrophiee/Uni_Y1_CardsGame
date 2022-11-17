@@ -421,8 +421,20 @@ namespace pairs
             player_1_score_txt.Text = "0";
             player_2_score = 0; //resets player scores
             player_2_score_txt.Text = "0";
-            gimagearray.Delete();
-            //deletes the cards and board if it exists
+            first_card_selected_row = -1;
+            first_card_selected_column = -1; //resets any selected cards
+            second_card_selected_row = -1;
+            second_card_selected_column = -1;
+            player_1_first_card_png.BackgroundImage = null; //removes any selected card pictures 
+            player_2_first_card_png.BackgroundImage = null;
+            for (int Row = 0; Row <= row_amount; Row++)
+            {
+                for (int Column = 0; Column <= column_amount; Column++)
+                {
+                    backs_of_the_cards[Row, Column] = 56; //resets all the backs of the cards
+                }
+            }
+            gimagearray.Delete(); //deletes the cards and board
         }
 
         private void save_game_menu_btn_Click(object sender, EventArgs e)
@@ -522,7 +534,7 @@ namespace pairs
                     game_started = false; //game ends
                     reset_board(); //resets board
                 }
-            }
+            } 
             first_card_selected_row = -1;
             second_card_selected_row = -1; //resets picked cards
             first_card_selected_column = -1;
@@ -727,7 +739,7 @@ namespace pairs
                                     x16ToolStripMenuItem.Checked = true;
                                     show_cards_timer.Interval = 20000;
                                     int_board = new int[16, 16];
-                                    backs_of_the_cards = new int[6, 6];
+                                    backs_of_the_cards = new int[16, 16];
                                     card_placement = new int[16, 16];
                                     row_amount = 15;
                                     column_amount = 15;
@@ -762,6 +774,7 @@ namespace pairs
                                         backs_of_the_cards[Row, Column] = card_back;
                                     }
                                 }
+                                
                                 gimagearray.UpDateImages(int_board); //updates the images
                                 for (int Row = 0; Row <= row_amount; Row++)
                                 {
@@ -873,6 +886,7 @@ namespace pairs
             {
                 prompt_user_to_save(); //asks the user if they want to save
                 reset_board(); //resets the board
+
             }
         }
 

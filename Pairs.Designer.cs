@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pairs));
             this.menu_bar = new System.Windows.Forms.MenuStrip();
             this.game_menu_btn = new System.Windows.Forms.ToolStripMenuItem();
             this.new_game_menu_btn = new System.Windows.Forms.ToolStripMenuItem();
@@ -256,12 +257,12 @@
             this.player_2_turn_lbl.AutoSize = true;
             this.player_2_turn_lbl.Font = new System.Drawing.Font("Segoe UI Black", 21.75F, System.Drawing.FontStyle.Bold);
             this.player_2_turn_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.player_2_turn_lbl.Location = new System.Drawing.Point(31, 246);
+            this.player_2_turn_lbl.Location = new System.Drawing.Point(51, 246);
             this.player_2_turn_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.player_2_turn_lbl.Name = "player_2_turn_lbl";
-            this.player_2_turn_lbl.Size = new System.Drawing.Size(171, 40);
+            this.player_2_turn_lbl.Size = new System.Drawing.Size(131, 40);
             this.player_2_turn_lbl.TabIndex = 15;
-            this.player_2_turn_lbl.Text = "Your Turn!";
+            this.player_2_turn_lbl.Text = "To Play.";
             this.player_2_turn_lbl.Visible = false;
             // 
             // player_2_score_txt
@@ -382,12 +383,12 @@
             this.player_1_turn_lbl.AutoSize = true;
             this.player_1_turn_lbl.Font = new System.Drawing.Font("Segoe UI Black", 21.75F, System.Drawing.FontStyle.Bold);
             this.player_1_turn_lbl.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.player_1_turn_lbl.Location = new System.Drawing.Point(31, 246);
+            this.player_1_turn_lbl.Location = new System.Drawing.Point(51, 291);
             this.player_1_turn_lbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.player_1_turn_lbl.Name = "player_1_turn_lbl";
-            this.player_1_turn_lbl.Size = new System.Drawing.Size(171, 40);
+            this.player_1_turn_lbl.Size = new System.Drawing.Size(131, 40);
             this.player_1_turn_lbl.TabIndex = 14;
-            this.player_1_turn_lbl.Text = "Your Turn!";
+            this.player_1_turn_lbl.Text = "To Play.";
             this.player_1_turn_lbl.Visible = false;
             // 
             // player_1_score_txt
@@ -514,6 +515,7 @@
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menu_bar;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Pairs";
